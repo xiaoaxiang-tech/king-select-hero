@@ -1,0 +1,20 @@
+@wrap: 1345px;
+@margin:0 auto;
+
+.flex-center() {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-between(@align-item) {
+  display: flex;
+  justify-content: space-between;
+  align-items: @align-item; // 可根据需求调整默认值
+}
+
+.flex-around(@align-item) {
+  display: flex;
+  justify-content: space-around;
+  align-items: @align-item;
+}

@@ -1,0 +1,14 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+:root {
+  --heroCartW: 80px;
+  --heroCartH: 80px;
+  --border: 5px solid red;
+}
+body {
+  overflow: hidden;
+  background-color: #ccc;
+}
