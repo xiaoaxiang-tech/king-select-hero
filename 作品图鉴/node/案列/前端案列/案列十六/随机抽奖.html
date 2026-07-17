@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .box {
+            width: 500px;
+            height: 500px;
+            /* background-color: red; */
+            display: grid;
+            grid-template-rows: repeat(3, 1fr);
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .box div {
+            border: 1px solid red;
+            font-size: 30px;
+            font-weight: 900;
+            text-align: center;
+            line-height: 166.66px;
+        }
+
+        .box div:nth-child(5) {
+            background-color: pink;
+            cursor: pointer;
+        }
+
+        .active {
+            background-color: yellow;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div class="award">张三</div>
+        <div class="award">李四</div>
+        <div class="award">万物</div>
+        <div class="award">赵六</div>
+        <div class="start">开始抽奖</div>
+        <div class="award">肇东没</div>
+        <div class="award">小阿乡</div>
+        <div class="award">金发妹</div>
+        <div class="award">大壮</div>
+    </div>
+    <script>
+        const start = document.querySelector('.start')
+        const divs = document.querySelectorAll('.award')
+        let time = 3000 //打算随机3秒钟
+        let dsqTime = 100
+        let num = time / dsqTime  //得出想要定时器运行的时间
+        let timer = null //定时器
+        function randomAward() {
+            clearInterval(timer) //防止多次点击导致定时器加快
+            timer = setInterval(() => {
+                num--
+                if (num < 0) {
+                    clearInterval(timer)
+                    num = time / dsqTime //再次点击
+                }
+                let randoms = Math.floor(Math.random() * divs.length)
+
+                for (let i = 0; i < divs.length; i++) {
+                    divs[i].classList.remove('active')
+                }
+                divs[randoms].classList.add('active')
+
+            }, dsqTime)
+
+        }
+        start.onclick = randomAward
+    </script>
+</body>
+
+</html>

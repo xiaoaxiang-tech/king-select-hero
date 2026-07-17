@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        button {
+            margin-top: 20px;
+        }
+       .ten {
+            font-size: 25px;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>恭喜你，支付成功！</h1>
+     <span class="ten"></span><span>秒后自动返回首页</span><br>
+     <button>立即返回</button>
+    <script>
+        const ten = document.querySelector('.ten')
+        const btn = document.querySelector('button')
+        let timer = 5
+        ten.innerHTML = timer
+        setInterval(() => {
+            if (timer <= 0) {
+                location.href = './1.html'
+            } else {
+                timer--
+                ten.innerHTML = timer
+            }
+
+             
+        },1000)
+
+
+        btn.onclick = () => {
+            location.href = './1.html'
+        }
+    </script>
+</body>
+</html>

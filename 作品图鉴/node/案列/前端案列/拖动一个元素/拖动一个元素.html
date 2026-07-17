@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .box {
+            width: 500px;
+            height: 500px;
+            background-color: #ccc;
+            margin: 20px auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(4, 1fr);
+            gap: 30px;
+        }
+
+        .son {
+            background-color: skyblue;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all .3s;
+
+            img {
+                width: 70px;
+                height: 70px;
+                object-fit: cover;
+            }
+        }
+
+        .active {
+            background-color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div class="son"></div>
+        <div class="son"></div>
+        <div class="son"></div>
+        <div class="son"></div>
+        <div class="son"></div>
+        <div class="son"></div>
+        <div class="son"></div>
+        <div class="son"></div>
+        <div class="son"></div>
+        <div class="son"></div>
+        <div class="son"></div>
+        <div class="son"></div>
+        <div class="son"></div>
+        <div class="son"></div>
+        <div class="son"></div>
+        <div class="son"></div>
+    </div>
+    <script>
+        const element = {
+            sonS: document.querySelectorAll('.son'),
+        }
+        function init() {
+            const { sonS } = element
+            for (let i = 0; i < sonS.length; i++) {
+                const img = document.createElement('img')
+                img.draggable = true
+                img.src = `./img/${i + 1}.png`
+                sonS[i].appendChild(img)
+            }
+        }
+        init()
+
+        const imgElement = document.querySelectorAll('img')
+        let activeArr = []  //存储谁添加了active
+        let keyJumpIndex = null //因为拖拽结束后下标可能不是拖拽的下标了
+        let rawValue = null
+        for (let i = 0; i < imgElement.length; i++) {
+            element.sonS[i].setAttribute('index', i)
+            imgElement[i].ondragstart = function (e) {
+                imgElement[i].parentNode.classList.add('active')
+                activeArr.push(i)
+                rawValue = i
+            }
+            imgElement[i].ondragend = function (e) {
+                imgElement[keyJumpIndex || i].parentNode.classList.remove('active')
+                activeArr = []
+            }
+
+            document.ondragover = function (e) {
+                e.preventDefault()
+                e.dataTransfer.dropEffect = 'move'
+            }
+            document.ondragenter = function (e) {
+
+                let Event = e.target
+                if (Event.className === 'son') {
+                    Event.classList.add('active')
+                    let index = +Event.getAttribute('index')
+                    activeArr.push(index)
+                    keyJumpIndex = index
+                }
+
+                if (Event.className === 'box' || Event === document.documentElement || Event === document.body) {
+                    let { sonS } = element
+                    sonS[activeArr[0]].classList.remove('active')
+                    activeArr.pop() //删除之前的active类
+                }
+
+            }
+            document.ondrop = function (e) {
+                if (imgElement[keyJumpIndex].parentNode.className === 'son active') {
+                    let temp = imgElement[keyJumpIndex].src
+                    imgElement[keyJumpIndex].src = imgElement[rawValue].src
+                    imgElement[rawValue].src = temp
+
+
+                }
+
+
+            }
+        }
+
+
+
+    </script>
+</body>
+
+</html>

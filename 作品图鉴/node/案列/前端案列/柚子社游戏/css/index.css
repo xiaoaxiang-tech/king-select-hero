@@ -1,0 +1,187 @@
+.container {
+  height: auto;
+  /* display: none; */
+}
+.header {
+  width: 100%;
+  height: 200px;
+  display: flex;
+  align-items: center;
+}
+
+.header ul {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.header ul li {
+  width: calc(1000px / 7.1);
+  height: calc(100% -5px);
+  background-color: #eee;
+  padding: 10px;
+}
+.header ul li:hover {
+  background-color: #666;
+}
+.header ul li img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: all 0.3s;
+}
+.header ul li img:hover {
+  transform: scale(1.05);
+}
+
+/* 内容部分 */
+
+.content {
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.5);
+  text-align: center;
+}
+.content .header {
+  height: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.text-troduce {
+  width: 100%;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  line-height: 30px;
+  font-size: 18px;
+  font-family: 楷体;
+  color: transparent;
+  background-image: linear-gradient(to left, #0c52e9, #a807e2);
+  background-clip: text;
+}
+
+.footer {
+  width: 100%;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer .easy,
+.footer .difficulty {
+  margin: 0 20px;
+  width: 150px;
+  height: 50px;
+  border-radius: 30px;
+  background-image: linear-gradient(to left, #912839, #ff7eb3);
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s;
+}
+.footer button {
+  width: 140px;
+  height: 40px;
+  border-radius: 30px;
+  background-image: linear-gradient(to left, #0c52e9, #a807e2);
+  font-size: 20px;
+  font-weight: 900;
+  color: #fff;
+  cursor: pointer;
+  border: 0;
+  outline: none;
+}
+.easy:hover,
+.difficulty:hover {
+  transform: translateY(-3px);
+  background-image: linear-gradient(to left, #ffffff, #ffffff);
+  box-shadow: -1px 0 0 #ccc;
+}
+
+/* 简单 */
+.easyContainer,
+.diffContainer {
+  width: 600px;
+  display: none;
+}
+
+.easyContainer .header,
+.diffContainer .header {
+  width: 100%;
+  height: 66.6px;
+  display: flex;
+  justify-content: center;
+}
+
+.easyContainer .header .content,
+.diffContainer .header .content {
+  width: 174px;
+  height: 66.7px;
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 1px 1px 3px #ccc;
+  text-align: center;
+  line-height: 66.7px;
+  font-size: 30px;
+  font-weight: 900;
+}
+.easyContainer h1,
+.diffContainer h1 {
+  text-align: center;
+  margin: 15px 0;
+}
+
+.easyContainer .tabConTrol {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 5px;
+  width: 100%;
+  height: 600px;
+}
+.diffContainer .tabConTrol {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(7, 1fr);
+  gap: 5px;
+  width: 100%;
+  height: 600px;
+}
+.easyContainer .tabConTrol div,
+.diffContainer .tabConTrol div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  background-color: #eee;
+  transition: all 0.3s;
+}
+.easyContainer .tabConTrol div img,
+.diffContainer .tabConTrol div img {
+  width: 95%;
+  height: 95%;
+  border-radius: 10px;
+  object-fit: contain;
+  transition: all 0.3s;
+}
+
+.easyContainer .tabConTrol div:hover,
+.diffContainer .tabConTrol div:hover {
+  transform: scale(1.1);
+}
+.easyContainer .tabConTrol div img:hover,
+.diffContainer .tabConTrol div img:hover {
+  transform: scale(1.1);
+}
+
+.active1 {
+    border: 5px solid green;
+}
+.active2 {
+    border: 5px solid red;
+}

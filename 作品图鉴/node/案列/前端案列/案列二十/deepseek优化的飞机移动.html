@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>无缝滚动飞机游戏</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        body {
+            overflow: hidden;
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .scene-container {
+            width: 442px;
+            height: 785px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .background-wrapper {
+            width: 100%;
+            height: 200%; /* 双倍高度实现无缝 */
+            position: absolute;
+            animation: bgScroll 10s linear infinite;
+        }
+
+        .background {
+            width: 100%;
+            height: 100%;
+            background: url(./images/场景.png) repeat-y;
+            background-size: 100% auto;
+        }
+
+        .plane {
+            position: absolute;
+            width: 127px;
+            height: 110.5px;
+            transition: transform 0.1s linear;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        @keyframes bgScroll {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-50%); }
+        }
+    </style>
+</head>
+<body>
+    <div class="scene-container">
+        <div class="background-wrapper">
+            <div class="background"></div>
+            <div class="background" style="top: 100%;"></div>
+        </div>
+        <img src="./images/飞机.png" alt="飞机" class="plane">
+    </div>
+
+    <script>
+        class Game {
+            constructor() {
+                this.plane = document.querySelector('.plane')
+                this.sceneContainer = document.querySelector('.scene-container')
+                this.keys = new Set()
+                
+                // 动态获取尺寸
+                const rect = this.sceneContainer.getBoundingClientRect()
+                this.container = {
+                    width: rect.width,
+                    height: rect.height
+                }
+
+                // 飞机初始位置
+                this.planeRect = this.plane.getBoundingClientRect()
+                this.planeX = (this.container.width - this.planeRect.width) / 2
+                this.planeY = this.container.height - this.planeRect.height - 20
+                this.speed = 10
+
+                this.init()
+            }
+
+            init() {
+                this.updatePlanePosition()
+                this.bindEvents()
+                this.gameLoop()
+            }
+
+            bindEvents() {
+                document.addEventListener('keydown', e => {
+                    if(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.key)) {
+                        e.preventDefault()
+                    }
+                    this.keys.add(e.code)
+                })
+                document.addEventListener('keyup', e => this.keys.delete(e.code))
+            }
+
+            updatePlanePosition() {
+                this.plane.style.transform = `
+                    translate(${this.planeX}px, ${this.planeY}px)
+                `
+            }
+
+            handleMovement() {
+                const delta = this.speed
+                
+                this.keys.forEach(code => {
+                    switch(code) {
+                        case ('ArrowUp' || 87):
+                            this.planeY = Math.max(0, this.planeY - delta)
+                            break
+                        case( 'ArrowDown' || 83):
+                            this.planeY = Math.min(
+                                this.container.height - this.planeRect.height, 
+                                this.planeY + delta
+                            )
+                            break
+                        case ('ArrowLeft' || 65):
+                            this.planeX = Math.max(0, this.planeX - delta)
+                            break
+                        case ('ArrowRight' || 68):
+                            this.planeX = Math.min(
+                                this.container.width - this.planeRect.width, 
+                                this.planeX + delta
+                            )
+                            break
+                    }
+                })
+            }
+
+            gameLoop() {
+                this.handleMovement()
+                this.updatePlanePosition()
+                requestAnimationFrame(() => this.gameLoop())
+            }
+        }
+
+        window.addEventListener('load', () => new Game())
+
+
+    </script>
+</body>
+</html>

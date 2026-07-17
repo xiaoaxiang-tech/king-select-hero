@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        input {
+            margin: 10px 10px;
+        }
+
+        button {
+            margin: 0 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <input type="checkbox">尼古拉斯赵四<br>
+    <input type="checkbox">莱安娜多刘能<br>
+    <input type="checkbox">约翰尼宋小宝<br>
+    <input type="checkbox">布拉德小沈阳<br>
+    <button>全选</button>
+    <button>全不选</button>
+    <button>反选</button>
+    <script>
+        const btn = document.querySelectorAll('button')
+        const inps = document.querySelectorAll('input')
+        btn[0].onclick = () => {
+            for (let i = 0; i < inps.length; i++) {
+                inps[i].checked = true
+            }
+        }  //全选
+
+        btn[1].onclick = () => {
+            for (let i = 0; i < inps.length; i++) {
+                inps[i].checked = false
+            }
+        } //全不选
+
+        btn[2].onclick = () => {
+            for (let i = 0; i < inps.length; i++) {
+                if (inps[i].checked === true) {
+                    inps[i].checked = false
+                } else {
+                    inps[i].checked = true
+                }
+            }
+        } //反选
+
+    </script>
+</body>
+
+</html>

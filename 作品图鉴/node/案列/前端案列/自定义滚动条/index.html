@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            overflow: hidden;
+        }
+
+
+        .scroll {
+            position: absolute;
+            right: 0;
+            width: 10px;
+            height: 100px;
+            background-color: red;
+            border-radius: 30px;
+            transform: translateY(1px);
+            z-index: 999;
+        }
+
+        .box {
+            width: 80%;
+            height: auto;
+            margin: 0 0 0 auto;
+            background-color: #f4f4f4;
+            padding: 10px;
+            box-shadow: 1px 3px 5px #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="scroll"></div>
+    <div class="box">
+        <div class="1">111111</div>
+        <div class="2">111111</div>
+        <div class="3">111111</div>
+        <div class="4">111111</div>
+        <div class="5">111111</div>
+        <div class="6">111111</div>
+        <div class="7">111111</div>
+        <div class="8">111111</div>
+        <div class="9">111111</div>
+        <div class="10">111111</div>
+        <div class="11">111111</div>
+        <div class="12">111111</div>
+        <div class="13">111111</div>
+        <div class="5">111111</div>
+        <div class="6">111111</div>
+        <div class="7">111111</div>
+        <div class="8">111111</div>
+        <div class="9">111111</div>
+        <div class="10">111111</div>
+        <div class="11">111111</div>
+        <div class="12">111111</div>
+        <div class="13">111111</div>
+        <div class="5">111111</div>
+        <div class="6">111111</div>
+        <div class="7">111111</div>
+        <div class="8">111111</div>
+        <div class="9">111111</div>
+        <div class="10">111111</div>
+        <div class="11">111111</div>
+        <div class="12">111111</div>
+        <div class="5">111111</div>
+        <div class="6">111111</div>
+        <div class="7">111111</div>
+        <div class="8">111111</div>
+        <div class="9">111111</div>
+        <div class="10">111111</div>
+        <div class="11">111111</div>
+        <div class="12">111111</div>
+        <div class="13">111111</div>
+        <div class="5">111111</div>
+        <div class="6">111111</div>
+        <div class="7">111111</div>
+        <div class="8">111111</div>
+        <div class="9">111111</div>
+        <div class="10">111111</div>
+        <div class="11">111111</div>
+        <div class="12">111111</div>
+        <div class="5">111111</div>
+        <div class="6">111111</div>
+        <div class="7">111111</div>
+        <div class="8">111111</div>
+        <div class="9">111111</div>
+        <div class="10">111111</div>
+        <div class="11">111111</div>
+        <div class="12">111111</div>
+        <div class="13">111111</div>
+        <div class="5">111111</div>
+        <div class="6">111111</div>
+        <div class="7">111111</div>
+        <div class="8">111111</div>
+        <div class="9">111111</div>
+        <div class="10">111111</div>
+        <div class="11">111111</div>
+        <div class="12">111111</div>
+        <div class="5">111111</div>
+        <div class="6">111111</div>
+        <div class="7">111111</div>
+        <div class="8">111111</div>
+        <div class="9">111111</div>
+        <div class="10">111111</div>
+        <div class="11">111111</div>
+        <div class="12">111111</div>
+        <div class="13">111111</div>
+        <div class="5">111111</div>
+        <div class="6">111111</div>
+        <div class="7">111111</div>
+        <div class="8">111111</div>
+        <div class="9">111111</div>
+        <div class="10">111111</div>
+        <div class="11">111111</div>
+        <div class="12">111111</div>
+        <div class="5">111111</div>
+        <div class="6">111111</div>
+        <div class="7">111111</div>
+        <div class="8">111111</div>
+        <div class="9">111111</div>
+        <div class="10">111111</div>
+        <div class="11">111111</div>
+        <div class="12">111111</div>
+        <div class="13">111111</div>
+        <div class="5">111111</div>
+        <div class="6">111111</div>
+        <div class="7">111111</div>
+        <div class="8">111111</div>
+        <div class="9">111111</div>
+        <div class="10">111111</div>
+        <div class="11">111111</div>
+        <div class="12">111111</div>
+        <div class="5">111111</div>
+        <div class="6">111111</div>
+        <div class="7">111111</div>
+        <div class="8">111111</div>
+        <div class="9">111111</div>
+        <div class="10">111111</div>
+        <div class="11">111111</div>
+        <div class="12">111111</div>
+        <div class="13">111111</div>
+        <div class="5">111111</div>
+        <div class="6">111111</div>
+        <div class="7">111111</div>
+        <div class="8">111111</div>
+        <div class="9">111111</div>
+        <div class="10">111111</div>
+        <div class="11">111111</div>
+        <div class="12">111111</div>
+        <div class="5">111111</div>
+        <div class="6">111111</div>
+        <div class="7">111111</div>
+        <div class="8">111111</div>
+        <div class="9">111111</div>
+        <div class="10">111111</div>
+        <div class="11">111111</div>
+        <div class="12">111111</div>
+        <div class="13">111111</div>
+        <div class="5">111111</div>
+        <div class="6">111111</div>
+        <div class="7">111111</div>
+        <div class="8">111111</div>
+        <div class="9">111111</div>
+        <div class="10">111111</div>
+        <div class="11">111111</div>
+        <div class="12">111111</div>
+        <div class="5">111111</div>
+        <div class="6">111111</div>
+        <div class="7">111111</div>
+        <div class="8">111111</div>
+        <div class="9">111111</div>
+        <div class="10">111111</div>
+        <div class="11">111111</div>
+        <div class="12">111111</div>
+        <div class="13">111111</div>
+        <div class="5">111111</div>
+        <div class="6">111111</div>
+        <div class="7">111111</div>
+        <div class="8">111111</div>
+        <div class="9">111111</div>
+        <div class="10">111111</div>
+        <div class="11">111111</div>
+        <div class="12">111111</div>
+        <div class="5">111111</div>
+        <div class="6">111111</div>
+        <div class="7">111111</div>
+        <div class="8">111111</div>
+        <div class="9">111111</div>
+        <div class="10">111111</div>
+        <div class="11">111111</div>
+        <div class="12">111111</div>
+        <div class="13">111111</div>
+        <div class="5">111111</div>
+        <div class="6">111111</div>
+        <div class="7">111111</div>
+        <div class="8">111111</div>
+        <div class="9">111111</div>
+        <div class="10">111111</div>
+        <div class="11">111111</div>
+        <div class="12">111111</div>
+        <div class="5">111111</div>
+        <div class="6">111111</div>
+        <div class="7">111111</div>
+        <div class="8">111111</div>
+        <div class="9">111111</div>
+        <div class="10">111111</div>
+        <div class="11">111111</div>
+        <div class="12">111111</div>
+        <div class="13">111111</div>
+        <div class="5">111111</div>
+        <div class="6">111111</div>
+        <div class="7">111111</div>
+        <div class="8">111111</div>
+        <div class="9">111111</div>
+        <div class="10">111111</div>
+        <div class="11">111111</div>
+        <div class="12">111111</div>
+        <div class="5">111111</div>
+        <div class="6">111111</div>
+        <div class="7">111111</div>
+        <div class="8">111111</div>
+        <div class="9">111111</div>
+        <div class="10">111111</div>
+        <div class="11">111111</div>
+        <div class="12">111111</div>
+        <div class="13">111111</div>
+        <div class="5">111111</div>
+        <div class="6">111111</div>
+        <div class="7">111111</div>
+        <div class="8">111111</div>
+        <div class="9">111111</div>
+        <div class="10">111111</div>
+        <div class="11">111111</div>
+        <div class="12">111111</div>
+        <div class="5">111111</div>
+        <div class="6">111111</div>
+        <div class="7">111111</div>
+        <div class="8">111111</div>
+        <div class="9">111111</div>
+        <div class="10">111111</div>
+        <div class="11">111111</div>
+        <div class="12">111111</div>
+        <div class="13">111111</div>
+        <div class="5">111111</div>
+        <div class="6">111111</div>
+        <div class="7">111111</div>
+        <div class="8">111111</div>
+        <div class="9">111111</div>
+        <div class="10">111111</div>
+        <div class="11">111111</div>
+        <div class="12">111111</div>
+        <div class="5">111111</div>
+        <div class="6">111111</div>
+        <div class="7">111111</div>
+        <div class="8">111111</div>
+        <div class="9">111111</div>
+        <div class="10">111111</div>
+        <div class="11">111111</div>
+        <div class="12">111111</div>
+        <div class="13">111111</div>
+        <div class="5">111111</div>
+        <div class="6">111111</div>
+        <div class="7">111111</div>
+        <div class="8">111111</div>
+        <div class="9">111111</div>
+        <div class="10">111111</div>
+        <div class="11">111111</div>
+        <div class="12">111111</div>
+        <div class="5">111111</div>
+        <div class="6">111111</div>
+        <div class="7">111111</div>
+        <div class="8">111111</div>
+        <div class="9">111111</div>
+        <div class="10">111111</div>
+        <div class="11">111111</div>
+        <div class="12">111111</div>
+        <div class="13">111111</div>
+        <div class="5">111111</div>
+        <div class="6">111111</div>
+        <div class="7">111111</div>
+        <div class="8">111111</div>
+        <div class="9">111111</div>
+        <div class="10">111111</div>
+        <div class="11">111111</div>
+        <div class="12">111111</div>
+        <div class="5">111111</div>
+        <div class="6">111111</div>
+        <div class="7">111111</div>
+        <div class="8">111111</div>
+        <div class="9">111111</div>
+        <div class="10">111111</div>
+        <div class="11">111111</div>
+        <div class="12">111111</div>
+        <div class="13">111111</div>
+        <div class="5">111111</div>
+        <div class="6">111111</div>
+        <div class="7">111111</div>
+        <div class="8">111111</div>
+        <div class="9">111111</div>
+        <div class="10">111111</div>
+        <div class="11">111111</div>
+        <div class="12">111111</div>
+        <div class="5">111111</div>
+        <div class="6">111111</div>
+        <div class="7">111111</div>
+        <div class="8">111111</div>
+        <div class="9">111111</div>
+        <div class="10">111111</div>
+        <div class="11">111111</div>
+        <div class="12">111111</div>
+        <div class="13">111111</div>
+        <div class="5">111111</div>
+        <div class="6">111111</div>
+        <div class="7">111111</div>
+        <div class="8">111111</div>
+        <div class="9">111111</div>
+        <div class="10">111111</div>
+        <div class="11">111111</div>
+        <div class="12">111111</div>
+        <div class="5">111111</div>
+        <div class="6">111111</div>
+        <div class="7">111111</div>
+        <div class="8">111111</div>
+        <div class="9">111111</div>
+        <div class="10">111111</div>
+        <div class="11">111111</div>
+        <div class="12">111111</div>
+        <div class="13">111111</div>
+        <div class="5">111111</div>
+        <div class="6">111111</div>
+        <div class="7">111111</div>
+        <div class="8">111111</div>
+        <div class="9">111111</div>
+        <div class="10">111111</div>
+        <div class="11">111111</div>
+        <div class="12">111111</div>
+        <div class="5">111111</div>
+        <div class="6">111111</div>
+        <div class="7">111111</div>
+        <div class="8">111111</div>
+        <div class="9">111111</div>
+        <div class="10">111111</div>
+        <div class="11">111111</div>
+        <div class="12">111111</div>
+        <div class="13">111111</div>
+        <div class="5">111111</div>
+        <div class="6">111111</div>
+        <div class="7">111111</div>
+        <div class="8">111111</div>
+        <div class="9">111111</div>
+        <div class="10">111111</div>
+        <div class="11">111111</div>
+        <div class="12">111111</div>
+        <div class="5">111111</div>
+        <div class="6">111111</div>
+        <div class="7">111111</div>
+        <div class="8">111111</div>
+        <div class="9">111111</div>
+        <div class="10">111111</div>
+        <div class="11">111111</div>
+        <div class="12">111111</div>
+        <div class="13">111111</div>
+        <div class="5">111111</div>
+        <div class="6">111111</div>
+        <div class="7">111111</div>
+        <div class="8">111111</div>
+        <div class="9">111111</div>
+        <div class="10">111111</div>
+        <div class="11">111111</div>
+        <div class="12">111111</div>
+        <div class="5">111111</div>
+        <div class="6">111111</div>
+        <div class="7">111111</div>
+        <div class="8">111111</div>
+        <div class="9">111111</div>
+        <div class="10">111111</div>
+        <div class="11">111111</div>
+        <div class="12">111111</div>
+        <div class="13">111111</div>
+        <div class="5">111111</div>
+        <div class="6">111111</div>
+        <div class="7">111111</div>
+        <div class="8">111111</div>
+        <div class="9">111111</div>
+        <div class="10">111111</div>
+        <div class="11">111111</div>
+        <div class="12">111111</div>
+        <div class="5">111111</div>
+        <div class="6">111111</div>
+        <div class="7">111111</div>
+        <div class="8">111111</div>
+        <div class="9">111111</div>
+        <div class="10">111111</div>
+        <div class="11">111111</div>
+        <div class="12">111111</div>
+        <div class="13">111111</div>
+        <div class="5">111111</div>
+        <div class="6">111111</div>
+        <div class="7">111111</div>
+        <div class="8">111111</div>
+        <div class="9">111111</div>
+        <div class="10">111111</div>
+        <div class="11">111111</div>
+        <div class="12">111111</div>
+        <div class="5">111111</div>
+        <div class="6">111111</div>
+        <div class="7">111111</div>
+        <div class="8">111111</div>
+        <div class="9">111111</div>
+        <div class="10">111111</div>
+        <div class="11">111111</div>
+        <div class="12">111111</div>
+        <div class="13">111111</div>
+        <div class="5">111111</div>
+        <div class="6">111111</div>
+        <div class="7">111111</div>
+        <div class="8">111111</div>
+        <div class="9">111111</div>
+        <div class="10">111111</div>
+        <div class="11">111111</div>
+        <div class="12">111111</div>
+    </div>
+    <script>
+        const box = document.querySelector('.box')
+        const scroll = document.querySelector('.scroll')
+        // 滚动条的高度
+        function scrollHeight() {
+            let sliderHeight = scrollRootContainerHeight() * (scrollRootContainerHeight() / box.offsetHeight)
+            if (sliderHeight < 50) {
+                sliderHeight = 50
+            }
+            if (sliderHeight > scrollRootContainerHeight()) {
+                sliderHeight = scrollRootContainerHeight()
+            }
+
+            scroll.style.height = sliderHeight + 'px'
+        }
+        scrollHeight()
+        let scrollMsgObj = {
+            speed: 15, //滚动的速度
+            pos: 0, //滚动条当前的位置
+            chazhi: scrollRootContainerHeight() - scroll.offsetHeight
+        }
+        let boxObj = {
+            pos: 0,
+        }
+
+        function scrollRootContainerHeight(root = window.innerHeight) {
+            return root
+        }
+        // 滚轮移动
+        function scrollmove(e) {
+            // 大于0往下滚,否则往上滚
+            let plotting = scrollMsgObj.speed / scrollRootContainerHeight()  //每次滚动的比列占总比列的多少
+            if (e.deltaY > 0 && (scrollMsgObj.pos < scrollMsgObj.chazhi)) {
+                scrollMsgObj.pos += scrollMsgObj.speed
+                boxObj.pos += (box.offsetHeight * -plotting)
+            } else if (e.deltaY < 0 && (scrollMsgObj.pos > 0)) {
+                scrollMsgObj.pos -= scrollMsgObj.speed
+                boxObj.pos += (box.offsetHeight * plotting)
+            }
+            crash() // 碰撞检测
+        }
+
+        // 鼠标移动滑杆
+        function moveslider(e) {
+            let { movementY } = e
+            scrollMsgObj.pos += movementY
+            let plotting = movementY / scrollRootContainerHeight() //滑动的比列占多少
+            let boxPlotting = box.offsetHeight * plotting
+            boxObj.pos += -boxPlotting
+            crash() // 碰撞检测
+        }
+        // 碰撞检测，和位置赋值
+        function crash() {
+            if (scrollMsgObj.pos > scrollMsgObj.chazhi) {
+                scrollMsgObj.pos = scrollMsgObj.chazhi
+            } else if (scrollMsgObj.pos < 0) {
+                scrollMsgObj.pos = 0
+                boxObj.pos = 0
+            }
+            scroll.style.transform = `translateY(${scrollMsgObj.pos}px)`
+            box.style.transform = `translateY(${boxObj.pos}px)`
+        }
+        box.onmouseenter = () => {
+            document.onwheel = scrollmove
+        }
+        box.onmouseleave = () => {
+            document.onwheel = null
+        }
+
+        scroll.onmousedown = (e) => {
+            e.preventDefault()
+            document.onmousemove = (e) => {
+                moveslider(e)
+            }
+            document.onmouseup = () => {
+                document.onmousemove = null
+                document.onmouseup = null
+            }
+        }
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --W: 600px;
+        }
+
+        table {
+            width: var(--W);
+            margin: 0 auto;
+            border-collapse: collapse;
+        }
+
+        table td {
+            text-align: center;
+            border: 1px solid #ccc;
+        }
+
+        .totle {
+            width: var(--W);
+            margin: 35px auto;
+
+        }
+
+        .del {
+            cursor: pointer;
+        }
+
+        .sub,
+        .add {
+            width: 20px;
+            height: 20px;
+            background-color: #ccc;
+            margin: 0 5px;
+            cursor: pointer;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <table>
+            <thead>
+                <tr>
+                    <td>
+                        <button class="quanxuan">全选</button>
+                    </td>
+                    <td>商品名称</td>
+                    <td>单价</td>
+                    <td>数量</td>
+                    <td>小计</td>
+                    <td>操作</td>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- map遍历渲染 -->
+            </tbody>
+        </table>
+        <div class="totle">总计:<span class="totles">0</span></div>
+    </div>
+
+
+    <script>
+        const quanxuan = document.querySelector('.quanxuan');
+        const totle = document.querySelector('.totles');
+        let totleNum = 0;
+        let data = [
+            {
+                productName: '电脑',
+                price: 200,
+                number: 1,
+                subTotle: 200
+            },
+            {
+                productName: '手机',
+                price: 100,
+                number: 1,
+                subTotle: 100
+            },
+        ];
+
+        function init() {
+            const newData = data.map((item, index) => {
+                return `
+            <tr>
+               <td>
+                   <input type="checkbox" class="inps">
+               </td>
+               <td>${item.productName}</td>
+               <td>${item.price}</td>
+               <td style="display:flex; justify-content: center;">
+                <div class="sub">-</div>
+                 <div class="number">${item.number}</div>
+                <div class="add">+</div>
+                </td>
+               <td class="subTotle">${item.subTotle}</td>
+               <td class="del">删除</td>
+            </tr>
+            `;
+            }).join('');
+            const tbody = document.querySelector('tbody');
+            tbody.innerHTML = newData;
+            const adds = document.querySelectorAll('.add');
+            const subs = document.querySelectorAll('.sub');
+            const numbers = document.querySelectorAll('.number');
+            const subTotles = document.querySelectorAll('.subTotle');
+            const inps = document.querySelectorAll('.inps');
+            const dels = document.querySelectorAll('.del');
+            for (let i = 0; i < data.length; i++) {
+                adds[i].onclick = () => {
+                    add(i, numbers, subTotles, inps);
+                };
+                subs[i].onclick = () => {
+                    sub(i, numbers, subTotles, inps);
+                };
+                inps[i].onchange = () => {
+                    change(inps[i], i, subTotles);
+                };
+                dels[i].onclick = () => {
+                    del(i);
+                };
+            }
+            updateTotle(); // 初始化时更新总价
+        }
+
+        init();
+
+        function add(i, numbers, subTotles, inps) {
+            numbers[i].innerHTML = ++data[i].number; // 数量
+            subTotles[i].innerHTML = data[i].number * data[i].price; // 小计
+            if (inps[i].checked) {
+                updateTotle();
+            }
+        }
+
+        function sub(i, numbers, subTotles, inps) {
+            if (data[i].number === 0) return;
+            numbers[i].innerHTML = --data[i].number; // 数量
+            subTotles[i].innerHTML = data[i].number * data[i].price; // 小计
+            if (inps[i].checked) {
+                updateTotle();
+            }
+        }
+
+        function change(inpsElement, i, subTotles) {
+            updateTotle(); // 每次选中状态变化时更新总价
+        }
+
+        function del(i) {
+            data.splice(i, 1); // 删除数据
+            init(); // 重新渲染
+        }
+
+        function updateTotle() {
+            const inps = document.querySelectorAll('.inps');
+            const subTotles = document.querySelectorAll('.subTotle');
+            totleNum = 0;
+            for (let i = 0; i < inps.length; i++) {
+                if (inps[i].checked) {
+                    totleNum += Number(subTotles[i].innerHTML);
+                }
+            }
+            totle.innerHTML = totleNum;
+        }
+
+        quanxuan.onclick = () => {
+            const inps = document.querySelectorAll('.inps');
+            const isChecked = quanxuan.innerHTML === '全选';
+            inps.forEach(inp => (inp.checked = isChecked));
+            quanxuan.innerHTML = isChecked ? '取消全选' : '全选';
+            updateTotle();
+        };
+    </script>
+</body>
+
+</html>

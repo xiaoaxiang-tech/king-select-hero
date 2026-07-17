@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .dialogBox {
+            width: 100%;
+            /* background-color: red; */
+            display: flex;
+            justify-content: space-between;
+            position: fixed;
+            bottom: 0;
+            padding: 15px 25px;
+        }
+
+        .talkA,
+        .talkB {
+            width: 500px;
+            min-height: 200px;
+            max-height: fit-content;
+            background-color: rgba(131, 51, 51, 0.3);
+            backdrop-filter: blur(3px);
+            line-height: 30px;
+            font-size: 18px;
+            font-family: 微软雅黑;
+            font-style: italic;
+            font-weight: 900;
+            transition: all .3s;
+        }
+
+        .talkA {
+            position: relative;
+            bottom: 40px;
+            border-radius: 0 100px 0 100px;
+            word-wrap: break-word;
+            padding: 10px 50px 0 10px;
+        }
+
+        .talkB {
+            border-radius: 100px 0 100px 0;
+            word-wrap: break-word;
+            padding: 10px 10px 0 50px;
+            opacity: 0;
+        }
+
+        .active1 {
+            opacity: 0;
+        }
+
+        .active2 {
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dialogBox">
+        <div class="talkA">
+            <span></span>
+        </div>
+        <div class="talkB">
+            <span></span>
+        </div>
+    </div>
+    <script src="./data.js"></script>
+    <script>
+        const talkA = document.querySelector('.talkA')
+        const talkB = document.querySelector('.talkB')
+        let index = 0
+        let flag = null
+        function showTalk(element) {
+            let wordLenth = 0
+            let timer = null
+            let timeNum = 16.667
+            clearInterval(timer)
+            timer = setInterval(() => {
+                element.innerText = talkData[index].text.substr(0, wordLenth)
+                wordLenth++
+                if (wordLenth >= talkData[index].text.length) {
+                    clearInterval(timer)
+                    index++
+                    flag = true
+                }
+            }, timeNum)
+        }
+
+        showTalk(talkData[index].name)
+
+        document.onclick = () => {
+            if (flag) {
+                flag = false
+                if (index >= talkData.length) {
+                    talkA.classList.remove('active2')
+                    talkB.classList.remove('active2')
+                    talkA.classList.add('active1')
+                    talkB.classList.add('active1')
+                    return
+                }
+                if (index % 2 !== 0) {
+                    talkA.classList.add('active1')
+                    talkB.classList.add('active2')
+                    talkA.classList.remove('active2')
+                    showTalk(talkData[index].name)
+                } else {
+                    talkA.classList.add('active2')
+                    talkB.classList.add('active1')
+                    talkB.classList.remove('active2')
+                    showTalk(talkData[index].name)
+                }
+
+            }
+        }
+    </script>
+</body>
+
+</html>

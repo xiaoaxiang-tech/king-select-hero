@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --lw: 15%;
+            --boxh: 500px;
+            /* 必须保持空格 */
+            --divh: calc(var(--boxh) / 5);
+        }
+
+        .box {
+            min-width: 1000px;
+            max-width: fit-content;
+            height: var(--boxh);
+            margin: 30px auto;
+            display: flex;
+        }
+
+        img {
+            width: var(--divh);
+            height: var(--divh);
+            object-fit: cover;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            margin-left: calc(var(--divh) / -2);
+            margin-top: calc(var(--divh) / -2);
+            transition: all .7s;
+            cursor: pointer;
+            border-radius: 20px;
+            box-shadow: 3px 3px 5px yellow;
+        }
+
+        .left {
+            width: var(--lw);
+            height: 100%;
+
+            div {
+                width: 100%;
+                height: var(--divh);
+                border: 3px solid #000;
+                border-bottom: 0;
+                font-family: 微软雅黑;
+                font-size: 40px;
+                font-weight: 900;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            div:last-child {
+                border-bottom: 3px solid #000;
+            }
+        }
+
+        .right {
+            width: calc(100% - var(--lw));
+            height: 100%;
+            background-color: #ccc;
+
+
+        }
+
+        .right>div {
+            width: 100%;
+            height: 20%;
+            border: 2px solid #000;
+            border-bottom: 0;
+            border-left: 0;
+            display: flex;
+
+            div {
+                width: var(--divh);
+                height: var(--divh);
+                /* background-color: skyblue; */
+                /* 父容器宽度不够时子容器不变形 */
+                flex-shrink: 0;
+            }
+        }
+
+        .right>div:last-child {
+            border-bottom: 2px solid #000;
+        }
+
+        .active {
+            background-color: red;
+            transition: all .5s;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div class="left">
+            <div>夯</div>
+            <div>顶级</div>
+            <div>人上人</div>
+            <div>NPC</div>
+            <div>拉完了</div>
+        </div>
+        <div class="right">
+            <div class="best"></div>
+            <div class="top"></div>
+            <div class="medium"></div>
+            <div class="NoOneCared"></div>
+            <div class="inferior"></div>
+        </div>
+    </div>
+    <script>
+        // 左边排名的颜色处理避免了写很多重复的css代码
+        let imageArr = []
+        window.addEventListener('load', () => {
+            let colorArr = ['red', 'orange', 'yellow', 'brown', 'white']
+            for (let i = 0; i < colorArr.length; i++) {
+                const div = document.querySelector(`.left div:nth-child(${i + 1})`)
+                div.style.backgroundColor = `${colorArr[i]}`
+            }
+            for (let i = 1; i <= 27; i++) {
+                imageArr.push(`${i}`)
+            }
+            initFigure()
+        })
+
+        let flag = null
+        async function initFigure() {
+            for (let i = 0; i < imageArr.length; i++) {
+                const img = document.createElement('img')
+                document.body.appendChild(img)
+                const imgall = document.querySelectorAll('img')
+                imgall[i].src = `./image/${imageArr[i]}.jpg`
+                imgall[i].style.transform = `scale(0)`
+                await new Promise(resolve => setTimeout(resolve, 50)); // 等待50毫秒
+                imgall[i].style.transform = `scale(1)`
+                await new Promise((resolve) => {
+                    imgall[i].onmousedown = (e) => {
+                        e.preventDefault()
+                        flag = e.target
+                        imgall[i].style.transition = 'none'
+                        imgall[i].style.pointerEvents = 'none'
+                        document.onmousemove = (e) => {
+                            mMove(e, imgall[i])
+                        }
+                    }
+                    document.onmouseup = async (e) => {
+                        document.onmousemove = null
+                        if (flag) {
+                            await dropIntiBox(e, imgall[i])
+                            resolve()
+                        }
+                    }
+                })
+            }
+        }
+
+
+        // 鼠标移动时
+        let x = 0, y = 0
+        let activeArr = new Set() //记录添加了active类的元素
+        function mMove(e, imgelement) {
+            let { movementX, movementY, clientX, clientY } = e
+            let { offsetLeft, offsetTop, offsetWidth, offsetHeight } = imgelement  //备用
+            x += movementX
+            y += movementY
+            imgelement.style.transform = `scale(1) translate(${x}px,${y}px)`
+            let target = document.elementFromPoint(clientX, clientY)
+            let leavel = target?.closest('.right div')
+            isActive(leavel) //是否高亮
+        }
+
+        function dropIntiBox(e, imgelement) {
+            flag = null
+            return new Promise((resolve) => {
+                let { clientX, clientY } = e
+                let target = document.elementFromPoint(clientX, clientY)
+                let leavel = target?.closest('.right div')
+                if (leavel?.className) {
+                    const div = document.createElement('div')
+                    leavel.appendChild(div)
+
+                    let firstActive = [...activeArr][0]
+                    activeArr?.delete([...activeArr][0])
+                    firstActive?.classList.remove('active')
+                    x = 0, y = 0
+                    let { offsetX, offsetY } = getMoveOffset(leavel.querySelector('div:last-child'))
+                    imgelement.style.transition = 'all .7s'
+                    imgelement.style.transform = `scale(1) translate(${offsetX}px,${offsetY}px)`
+                    imgelement.addEventListener('transitionend', () => {
+                        resolve()
+                    }, { once: true })
+
+                } else {
+                    x = 0
+                    y = 0
+                    imgelement.style.transition = 'all .7s'
+                    imgelement.style.transform = `scale(1) translate(${x}px,${y}px)`
+                    imgelement.style.pointerEvents = 'auto'
+                }
+            })
+        }
+
+        function isActive(leavel) {
+            if (leavel) {
+                activeArr.add(leavel)
+                if (activeArr.size > 1) {
+                    let firstActive = [...activeArr][0]
+                    firstActive?.classList.remove('active')
+                    activeArr?.delete([...activeArr][0])
+                }
+                let firstActive = [...activeArr][0]
+                firstActive?.classList.add('active')
+            } else {
+                let firstActive = [...activeArr][0]
+                activeArr?.delete([...activeArr][0])
+                firstActive?.classList.remove('active')
+            }
+        }
+        // 计算图片的偏移量
+        function getMoveOffset(targetDiv) {
+            let { left: divLeft, top: divTop } = targetDiv.getBoundingClientRect()
+            let { offsetWidth, offsetHeight } = targetDiv
+            let imgInitX = window.innerWidth / 2 - offsetWidth / 2
+            let imgInitY = window.innerHeight / 2 - offsetHeight / 2
+
+            const offsetX = divLeft - imgInitX
+            const offsetY = divTop - imgInitY
+
+            return { offsetX, offsetY }
+        }
+    </script>
+</body>
+
+</html>

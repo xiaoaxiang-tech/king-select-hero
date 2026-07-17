@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        ul li {
+            list-style: none;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 10px;
+            border-bottom: 1px solid #ccc;
+            margin-top: 20px;
+        }
+
+        .box {
+            width: 500px;
+            margin: 0 auto;
+            height: auto;
+        }
+
+        .head {
+            height: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            /* background-color: red; */
+        }
+
+        .head span {
+            font-size: 25px;
+            font-weight: 900;
+        }
+
+        .head button {
+            border-radius: 0;
+            border: 0;
+            width: 50px;
+            height: 100%;
+            cursor: pointer;
+            border-radius: 10px;
+            background-color: rgb(241, 50, 7);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div class="head">
+            <span>百度热榜</span>
+            <button class="conversion">换一换</button>
+        </div>
+        <ul>
+            <li>
+                <span>1212gnfd</span>
+                <span>101</span>
+            </li>
+        </ul>
+    </div>
+    <script type="module">
+        import { data } from './data.js' //数据
+
+        let index = 8
+        let totleRandom = []
+
+        function init() {
+            for (let i = 0; i < index; i++) {
+                let randoms = Math.floor(Math.random() * data.length)
+                totleRandom = totleRandom.concat([data[randoms]])
+            }
+           const newArr = totleRandom.map(item => {
+                return `
+                  
+             <li>
+                <span>${item.instrduce}</span>
+                <span>${item.hot}</span>
+            </li>
+                  `
+            }).join('')
+        const ul = document.querySelector('ul')
+        ul.innerHTML = newArr
+        totleRandom = []
+        }
+
+        init()
+       const conversion = document.querySelector('.conversion')
+       conversion.onclick = init
+    </script>
+</body>
+
+</html>

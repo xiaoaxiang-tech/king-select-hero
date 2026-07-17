@@ -1,0 +1,121 @@
+{
+  "id": "4656890",
+  "name": "钱包项目",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "1360038",
+      "name": "更换密码",
+      "font_class": "genghuanmima",
+      "unicode": "e695",
+      "unicode_decimal": 59029
+    },
+    {
+      "icon_id": "6292127",
+      "name": "密码设置",
+      "font_class": "mimashezhi",
+      "unicode": "e61e",
+      "unicode_decimal": 58910
+    },
+    {
+      "icon_id": "16660110",
+      "name": "x",
+      "font_class": "x",
+      "unicode": "e62f",
+      "unicode_decimal": 58927
+    },
+    {
+      "icon_id": "18957389",
+      "name": "x",
+      "font_class": "x1",
+      "unicode": "e67d",
+      "unicode_decimal": 59005
+    },
+    {
+      "icon_id": "5171735",
+      "name": "钱",
+      "font_class": "qian",
+      "unicode": "e607",
+      "unicode_decimal": 58887
+    },
+    {
+      "icon_id": "9673164",
+      "name": "搜索",
+      "font_class": "sousuo",
+      "unicode": "e609",
+      "unicode_decimal": 58889
+    },
+    {
+      "icon_id": "26392",
+      "name": "加",
+      "font_class": "jia",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    },
+    {
+      "icon_id": "7956835",
+      "name": "减_色块",
+      "font_class": "jian_sekuai",
+      "unicode": "ed21",
+      "unicode_decimal": 60705
+    },
+    {
+      "icon_id": "12249539",
+      "name": "宝箱",
+      "font_class": "baoxiang",
+      "unicode": "e60d",
+      "unicode_decimal": 58893
+    },
+    {
+      "icon_id": "28631353",
+      "name": "交易成功-订单详情",
+      "font_class": "jiaoyichenggong-dingdanxiangqing",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "2675006",
+      "name": "扫一扫",
+      "font_class": "saoyisao",
+      "unicode": "e62e",
+      "unicode_decimal": 58926
+    },
+    {
+      "icon_id": "4722220",
+      "name": "设置",
+      "font_class": "shezhi",
+      "unicode": "e668",
+      "unicode_decimal": 58984
+    },
+    {
+      "icon_id": "2675113",
+      "name": "发现",
+      "font_class": "faxian",
+      "unicode": "e631",
+      "unicode_decimal": 58929
+    },
+    {
+      "icon_id": "2742634",
+      "name": "行情",
+      "font_class": "hangqing",
+      "unicode": "e66c",
+      "unicode_decimal": 58988
+    },
+    {
+      "icon_id": "5104965",
+      "name": "钱包",
+      "font_class": "qianbao",
+      "unicode": "e613",
+      "unicode_decimal": 58899
+    },
+    {
+      "icon_id": "17546286",
+      "name": "我的",
+      "font_class": "wode",
+      "unicode": "e603",
+      "unicode_decimal": 58883
+    }
+  ]
+}

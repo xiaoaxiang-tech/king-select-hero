@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .yuan {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            align-items: center;
+        }
+
+        .yuan li {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background-color: rgba(0, 0, 0, .5);
+            margin: 0 10px;
+            cursor: pointer;
+        }
+
+        .box {
+            width: 500px;
+            height: 300px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer {
+            width: 100%;
+            height: 30px;
+            background-color: rgba(8, 157, 237, 0.5);
+            position: absolute;
+            bottom: 0;
+        }
+
+        .boxul {
+            height: 100%;
+            display: flex;
+            transform: translateX(-500px);
+            transition: all .5s;
+            overflow: hidden;
+        }
+
+        .boxul li {
+            width: 100%;
+            height: 100%;
+        }
+
+        .boxul img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .footer .yuan .active {
+            background-color: skyblue;
+        }
+
+        .left,
+        .right {
+            position: absolute;
+            top: 50%;
+            font-size: 60px;
+            color: #fff;
+            transform: translateY(-50%);
+            cursor: pointer;
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            line-height: 50px;
+            background-color: rgba(0, 0, 0, .5);
+        }
+
+        .right {
+            right: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <ul class="boxul">
+            <li><img src="./imgages/1.png" alt=""></li>
+            <li><img src="./imgages/2.png" alt=""></li>
+            <li><img src="./imgages/3.png" alt=""></li>
+            <li><img src="./imgages/4.png" alt=""></li>
+        </ul>
+        <div class="footer">
+            <ul class="yuan">
+                <li class="active"></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+
+        </div>
+        <div class="left">
+            < </div>
+                <div class="right">
+                    >
+                </div>
+        </div>
+        <script>
+            const boxul = document.querySelector('.boxul')
+            const boxulImg = document.querySelectorAll('.boxul img')
+            const box = document.querySelector('.box')
+            const yuanLis = document.querySelectorAll('.yuan li')
+
+            //克隆第一个元素到最后面把最后一个元素克隆到最前面
+            let firstImg = boxul.firstElementChild.cloneNode(true)
+            let lastImg = boxul.lastElementChild.cloneNode(true)
+            boxul.appendChild(firstImg)
+            boxul.insertBefore(lastImg, boxul.firstElementChild)
+
+            function init() {
+
+                boxul.style.width = box.offsetWidth * (boxulImg.length + 2) + 'px'
+
+            }
+            init()
+
+
+            const left = document.querySelector('.left')
+            const right = document.querySelector('.right')
+            let index = 1
+            let circle = 0
+            let timer = null //定时器
+            function prev() {
+                index--
+
+                boxul.style.transform = `translateX(-${index * box.offsetWidth}px)`
+                if (index < 1) {
+                    box.clientHeight //无缝滚动的关键点 导致浏览器回流重新渲染
+
+                    index = boxulImg.length
+                    circle = boxulImg.length
+
+                    boxul.style.transition = 'none'
+                    boxul.style.transform = `translateX(-${box.offsetWidth * (index + 1)}px)`
+                    boxul.style.transform = `translateX(-${box.offsetWidth * index}px)`
+                    boxul.style.transition = 'all .5s'
+                }
+                yuanLis.forEach((item, index) => {
+                    item.classList.remove('active')
+                })
+                circle--
+                yuanLis[circle].classList.add('active')
+            }
+
+            function next() {
+
+                index++
+
+                boxul.style.transform = `translateX(-${index * box.offsetWidth}px)`
+                yuanLis.forEach((item, index) => {
+                    item.classList.remove('active')
+                })
+
+                if (index > boxulImg.length) {
+
+                    box.clientHeight //无缝滚动的关键点 导致浏览器回流重新渲染
+                    index = 0
+                    circle = -1
+                    boxul.style.transform = `translateX(-${index * box.offsetWidth}px)`
+                    boxul.style.transition = 'none'
+                    index++
+                    boxul.style.transform = `translateX(-${index * box.offsetWidth}px)`
+                    boxul.style.transition = 'all .5s'
+
+                }
+                circle++
+                yuanLis[circle].classList.add('active')
+            }
+            left.onclick = prev  //上一张
+
+            right.onclick = next  //下一张
+
+            function exclusive(item, i) {
+                yuanLis.forEach((item, index) => {
+                    item.classList.remove('active')
+                })
+                item.classList.add('active')
+                boxul.style.transform = `translateX(-${box.offsetWidth * (i + 1)}px)`
+                index = i + 1
+                circle = i
+            }
+
+            yuanLis.forEach((item, index) => {
+                item.onclick = () => {
+                    exclusive(item, index)
+                }
+
+            })
+
+            timer = setInterval(next, 2000)
+            box.onmouseenter = () => {
+                clearInterval(timer)
+
+            }
+            box.onmouseleave = () => {
+                timer = setInterval(next, 2000)
+            }
+        </script>
+</body>
+
+</html>

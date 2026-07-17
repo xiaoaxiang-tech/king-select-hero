@@ -1,0 +1,207 @@
+.box {
+    margin: 0 auto;
+    width: 600px;
+    height: auto;
+}
+.header {
+    width: 100%;
+    height: 50px;
+    background: linear-gradient(to right, skyblue, #f8f8f8);
+    display: flex;
+    justify-content: space-between;
+}
+
+.money {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+}
+
+.money span {
+    font-size: 20px;
+    color: #fff;
+    letter-spacing: 2px;
+}
+
+.money span:nth-child(2) {
+    margin-left: 10px;
+}
+
+.inp {
+    width: 50%;
+    height: 100%;
+    /* background-color: red; */
+    display: flex;
+    align-items: center;
+}
+
+.inp input {
+    outline: none;
+    border: 0;
+    width: 75%;
+    height: 50%;
+    border-radius: 15px;
+    padding: 0 15px;
+}
+
+.inp input::placeholder {
+    color: #f18204;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    font-family: "微软雅黑";
+    letter-spacing: 2px;
+    padding: 0 15px;
+}
+
+.inp button {
+    width: 25%;
+    height: 50%;
+    /* background-color: orange; */
+    border: 0;
+    outline: none;
+    cursor: pointer;
+    border-radius: 15px;
+}
+
+/* 商品模块 */
+.goods {
+    width: 100%;
+    height: auto;
+    /* background: linear-gradient(to right, #f18204, #d2ba06); */
+    padding: 15px 0;
+}
+
+.goods ul li {
+    margin: 10px 0;
+    background: linear-gradient(to right, #f18204, #d2ba06);
+    border-radius: 25px;
+    height: 100px;
+}
+
+.goods ul li .left {
+    width: 45%;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    float: left;
+    /* background-color: red; */
+}
+
+.goods ul li .left .img {
+    width: 80px;
+    height: 80px;
+    /* background-color: red; */
+    border-radius: 50%;
+}
+
+.goods ul li .left .img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+
+.box .goods ul li .right {
+    width: 50%;
+    height: 100px;
+    float: right;
+    /* background-color: blue; */
+}
+
+.goods ul li .right .headertext {
+    width: 100%;
+    height: 70%;
+    /* background-color: red; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+    color: white;
+    font-weight: 700;
+    font-family: '微软雅黑';
+
+}
+
+.goods ul li .right .footernums {
+    width: 100%;
+    height: 35%;
+    /* background-color: blue; */
+    display: flex;
+    flex-direction: row-reverse;
+    padding: 0 10px 10px 0;
+}
+
+.goods ul li .right .footernums .countmodule {
+    width: 50%;
+    height: 100%;
+    background-color: green;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 15px;
+    border-radius: 15px;
+}
+
+.goods ul li .right .footernums .countmodule span {
+    font-size: 20px;
+    color: #000;
+    cursor: pointer;
+}
+
+/* 没有找到结果时显示 */
+.noresult {
+    width: 100%;
+    height: 100px;
+    font-size: 30px;
+    color: red;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 900;
+    text-align: center;
+    line-height: 100px;
+    display: none;
+    /* 默认隐藏 */
+}
+
+/* 结算 */
+.settlement {
+    width: 100%;
+    height: 50px;
+    background-color: rgb(255, 102, 0);
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    border-radius: 15px;
+}
+
+.settlement .sumup {
+    width: 50%;
+    height: 100%;
+    /* background-color: orange; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 0 0 15px;
+}
+
+.settlement .sumup span {
+    font-size: 20px;
+    color: #fff;
+    cursor: pointer;
+}
+
+.settlement .sumup button {
+    width: 50%;
+    height: 100%;
+    background-color: orange;
+    font-size: large;
+    cursor: pointer;
+    border: 0;
+    outline: none;
+    border-radius: 15px;
+    color: #fff;
+}

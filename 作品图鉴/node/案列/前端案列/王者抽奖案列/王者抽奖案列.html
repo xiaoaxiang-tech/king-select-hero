@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .box {
+            width: 650px;
+            height: 400px;
+            background-color: rgb(255, 255, 255);
+            margin: 200px auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .one,
+        .two {
+            width: 100%;
+            height: calc(100% / 4 - 5px);
+            background-color: rgb(255, 255, 255);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .one div,
+        .two div {
+            width: calc(100% / 5 - 5px);
+            height: 100%;
+            background-color: rebeccapurple;
+        }
+
+        .one div img,
+        .two div img,
+        .right img,
+        .left img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: relative;
+            padding: 5px;
+        }
+
+        .content {
+            width: 100%;
+            height: 200px;
+            background-color: rgb(255, 255, 255);
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .content .left,
+        .content .right {
+            width: calc(100% / 5 - 5px);
+            height: 100%;
+            background-color: skyblue;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .content .left div,
+        .content .right div {
+            width: 100%;
+            height: calc(100% / 2 - 5px);
+            background-color: purple;
+        }
+
+        .content .center,
+        .content .newcenter {
+            width: 390px;
+            height: 100%;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            position: relative;
+            border-radius: 15px;
+            background-image: linear-gradient(#1ea9c2, #0e5ce2);
+            box-shadow: 1px 1px 5px #ccc;
+        }
+
+        .content .newcenter {
+            position: absolute;
+            left: 130px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            /* z-index: 10; */
+        }
+
+        .jifen {
+            width: 75px;
+            height: 150px;
+            background-image: linear-gradient(#dca009, #e2200e);
+            border-radius: 60px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .jifen2 {
+            width: 75px;
+            height: 0.000000001px;
+            border-radius: 60px;
+            position: absolute;
+            bottom: 0;
+            background-color: #fff;
+            transition: all .3s;
+        }
+
+        .center .lucky {
+            margin: 0 30px;
+            font-size: 30px;
+            font-weight: 600;
+            color: transparent;
+            background-image: linear-gradient(#cb1111, rgb(231, 116, 9));
+            background-clip: text;
+            font-style: oblique;
+        }
+
+        .luckyBtn {
+            width: 100%;
+            height: 50px;
+            /* background-color: red; */
+            position: absolute;
+            bottom: 0;
+            display: flex;
+            flex-direction: row-reverse;
+            align-items: center;
+
+        }
+
+        .luckyBtn button {
+            width: 100px;
+            height: 40px;
+            outline: none;
+            margin: 0 10px 0 0;
+            border-radius: 10px;
+            font-size: 18px;
+            font-style: oblique;
+            font-family: 微软雅黑;
+            color: transparent;
+            background-image: linear-gradient(#ccc, red);
+            background-clip: text;
+            transform: skew(-25deg);
+            cursor: pointer;
+        }
+
+        .active {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(241, 5, 5, .8);
+        }
+
+        .shop {
+            position: fixed;
+            inset: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 100;
+            display: none;
+        }
+
+        .shopSon {
+            width: 500px;
+            height: 300px;
+            border-radius: 10px;
+            background-color: rgb(237, 13, 5, .6);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+        }
+
+        .shopSon .center {
+            width: 100%;
+            height: 70px;
+            background-color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+        }
+
+        .shopSon .footer {
+            width: 100%;
+            height: 40px;
+            background-color: #fff;
+            position: absolute;
+            bottom: 0;
+            display: flex;
+            flex-direction: row-reverse;
+            align-items: center;
+        }
+
+        .footer .btn {
+            width: fit-content;
+        }
+
+        .footer .btn button {
+            width: 100px;
+            height: 30px;
+            outline: none;
+            margin: 0 10px;
+            border-radius: 10px;
+            font-size: 20px;
+            font-style: oblique;
+            background-image: linear-gradient(45deg, #ccc, #b11d1d);
+            color: transparent;
+            background-clip: text;
+            cursor: pointer;
+        }
+
+        .newcenter img,
+        .shopSon img {
+            width: 40px;
+            height: 40px;
+            object-fit: cover;
+            border: 2px solid #000;
+            margin: 0 10px;
+        }
+
+
+        /* 动画 */
+        /* 动画类 */
+        .fade1 {
+            animation: fadeIn 1s forwards;
+        }
+
+        .fade2 {
+            animation: slideIn 1s forwards;
+        }
+
+        .fade3 {
+            animation: zoomIn 1s forwards;
+        }
+
+        .fade4 {
+            animation: rotateIn 1s forwards;
+        }
+
+        .fade5 {
+            animation: bounceIn 1s forwards;
+        }
+
+        /* 动画关键帧 */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-100px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes zoomIn {
+            from {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes rotateIn {
+            from {
+                opacity: 0;
+                transform: rotate(-180deg) scale(0.5);
+            }
+
+            to {
+                opacity: 1;
+                transform: rotate(0) scale(1);
+            }
+        }
+
+        @keyframes bounceIn {
+            0% {
+                opacity: 0;
+                transform: translateY(200px);
+            }
+
+            60% {
+                opacity: 1;
+                transform: translateY(-30px);
+            }
+
+            80% {
+                transform: translateY(10px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div class="one">
+            <div><img src="./images/王者水晶.png" alt=""></div>
+            <div><img src="./images/夏洛特.png" alt=""></div>
+            <div><img src="./images/墨子.png" alt=""></div>
+            <div><img src="./images/蓝霸buff.png" alt=""></div>
+            <div><img src="./images/异变.png" alt=""></div>
+        </div>
+        <div class="content">
+            <div class="left">
+                <div><img src="./images/红月.png" alt=""></div>
+                <div><img src="./images/墨子.png" alt=""></div>
+            </div>
+            <div class="center">
+                <div class="jifen">
+                    <div class="jifen2"></div>
+                </div>
+                <span class="lucky">当前幸运值<span class="jishuqi">0</span></span>
+                <div class="luckyBtn">
+                    <button class="oneChou">抽一次</button>
+                    <button class="fiveChou">抽五次</button>
+                </div>
+            </div>
+            <div class="newcenter"></div>
+            <div class="right">
+                <div><img src="./images/夏洛特.png" alt=""></div>
+                <div><img src="./images/墨子.png" alt=""></div>
+            </div>
+        </div>
+        <div class="two">
+            <div><img src="./images/红月.png" alt=""></div>
+            <div><img src="./images/夏洛特.png" alt=""></div>
+            <div><img src="./images/玄策.png" alt=""></div>
+            <div><img src="./images/红月.png" alt=""></div>
+            <div><img src="./images/玄策.png" alt=""></div>
+        </div>
+    </div>
+    <!-- 商品展示区 -->
+    <div class="shop">
+        <div class="shopSon">
+            <div class="center">
+
+            </div>
+            <div class="footer">
+                <div class="btn">
+                    <button>再抽<span class="againChonNCI">??</span>次</button>
+                    <button>确认</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const oneImg = document.querySelectorAll('.one div img')
+        const leftImg = document.querySelectorAll('.left div img')
+        const rightImg = document.querySelectorAll('.right div img')
+        const twoImg = document.querySelectorAll('.two div img')
+        const boxCenter = document.querySelector(' .box .center ')
+        const boxNewCenter = document.querySelector('.content .newcenter')
+        const shop = document.querySelector('.shop')
+        const shopCenter = document.querySelector('.shopSon .center')
+
+
+        let newLeftImg = Array.from(leftImg).reverse()
+        let newTwoImg = Array.from(twoImg).reverse()
+        // 处理好的图片数组
+        let imgArr = [...oneImg, ...rightImg, ...newTwoImg, ...newLeftImg]
+
+        const Btns = document.querySelectorAll('.luckyBtn button')
+        console.log(Btns);
+
+
+        const jishuqi = document.querySelector('.jishuqi')  //幸运值
+        const jiFen = document.querySelector('.jifen')
+
+        const jifen2 = document.querySelector('.jifen2')
+
+        let randomData = []
+        randomData.push(0)
+        for (let i = 1; i < 121; i++) {
+            if (i <= 20) randomData.push(100)
+            if (i <= 40 && i > 20) randomData.push(300)
+            if (i <= 60 && i > 40) randomData.push(600)
+            if (i <= 80 && i > 60) randomData.push(700)
+            if (i <= 100 && i > 80) randomData.push(500)
+            if (i <= 120 && i > 100) randomData.push(900)
+
+        }
+        /**定时器随机运行时间 */
+        let timer = null
+        let j = -1 //控制active给谁添加
+        function randomTime(cishu) {
+            let runWantTime = 1000
+            let runSubTime = (runWantTime / 50).toFixed(2)
+            clearInterval(timer)
+            timer = setInterval(() => {
+                runSubTime--
+                if (runSubTime <= 0) {
+                    clearInterval(timer)
+                    // 开始抽奖
+                    choujian(cishu)
+                }
+                MoveActive()
+            }, 50)
+
+        }
+
+        async function choujian(cishu) {
+            for (let i = 0; i < cishu; i++) {
+                // 可以开始抽奖了
+                let randomTimerIndex = Math.floor(Math.random() * randomData.length)  //开始抽奖后运动的时间
+                let newRunTime = (randomData[randomTimerIndex] / 50).toFixed(2)
+                await new Promise((resolve) => {
+                    timer = setInterval(() => {
+                        newRunTime--
+                        if (newRunTime <= 0) {
+                            clearInterval(timer)
+                            setTimeout(() => {
+                                resolve()
+                                showShop()
+                            }, 500)
+                        }
+
+                        MoveActive()
+                    }, 50)
+                })
+            }
+            shopLook(cishu)
+        }
+        function pickBorderMove(num) {
+            jifenJISuanFun(num)
+            randomTime(num)
+        }
+        /**按钮禁用 */
+        function disableBtn(nums = null) {
+            for (let i = 0; i < Btns.length; i++) {
+                if (nums === 0) {
+                    Btns[i].disabled = false
+                    continue
+                }
+                Btns[i].disabled = true
+            }
+        }
+        function MoveActive() {
+            for (let i = 0; i < imgArr.length; i++) {
+                imgArr[i].classList.remove('active')
+            }
+            if (j >= imgArr.length - 1) {
+                j = -1
+            }
+            j++
+
+            imgArr[j].classList.add('active')
+        }
+
+        function noneBorder() {
+            boxCenter.style.opacity = '0'
+            boxNewCenter.style.opacity = '100'
+        }
+
+        let imgArrs = []  //图片数组
+        function showShop() {
+            const active = document.querySelector('.active')
+            const newImg = document.createElement('img')
+            newImg.classList.add('newImg')
+            newImg.src = active.src
+            imgArrs.push(active.src)
+            boxNewCenter.appendChild(newImg)
+        }
+        const againChonNCI = document.querySelector('.againChonNCI')
+        const AgainBtns = document.querySelectorAll('.btn button')
+
+        function shopLook(num) {
+            shop.style.display = 'block'
+            againChonNCI.textContent = num
+            for (let i = 0; i < num; i++) {
+                const imgs = document.createElement('img')
+                imgs.classList.add('imgMove')
+                shopCenter.appendChild(imgs)
+                imgs.src = imgArrs[i]
+            }
+            const imgAll = document.querySelectorAll('.imgMove')
+            let Delay = 0
+            for (let i = 0; i < num; i++) {
+                imgAll[i].style.opacity = '0'
+                Delay += 0.2
+                imgAll[i].classList.add(`fade${i + 1}`)
+                imgAll[i].style.animationDelay = `${Delay}s`;
+            }
+            AgainBtns[0].onclick = () => {
+                removeElement(num)
+            }
+            AgainBtns[1].onclick = () => {
+                removeElementS(num)
+                shop.style.display = 'none'
+                boxNewCenter.style.opacity = '0'
+                boxCenter.style.opacity = '100'
+                // 解除按钮禁用
+                disableBtn(0)
+
+
+            }
+        }
+
+        function removeElement(num) {
+            console.log(num);
+
+            shop.style.display = 'none'
+            removeElementS(num)
+            pickBorderMove(num)
+        }
+
+        function removeElementS(num) {
+            const newImg = document.querySelectorAll('.newImg')
+            const imgAll = document.querySelectorAll('.imgMove')
+            imgArrs = []
+            for (let i = 0; i < num; i++) {
+                imgAll[i].remove()
+                newImg[i].remove()
+            }
+        }
+        let jiangliJIFen = 0
+        let jifenWBaiFenBiNum = 0
+        let heights = jiFen.offsetHeight
+
+        function jifenJISuanFun(num) {
+            let jifenBaiFenbi = (heights / 200) * num
+            jifenWBaiFenBiNum += jifenBaiFenbi
+            jiangliJIFen += num
+
+            jishuqi.textContent = jiangliJIFen
+            jifen2.style.height = jifenWBaiFenBiNum + 'px'
+            if (jiangliJIFen > 200) {
+                jiangliJIFen -= 200
+                jishuqi.textContent = jiangliJIFen
+                jifenWBaiFenBiNum = jifenBaiFenbi
+                jifen2.style.height = jifenWBaiFenBiNum + 'px'
+            }
+        }
+        Btns[0].addEventListener('click', () => {
+            disableBtn()
+            pickBorderMove(1)
+            noneBorder()
+            // // 防止点击过快
+            // setTimeout(() => {
+            //     disableBtn()
+            // })
+        })
+        Btns[1].addEventListener('click', () => {
+            disableBtn()
+            pickBorderMove(5)
+            noneBorder()
+            // // 防止点击过快
+            // setTimeout(() => {
+            //     disableBtn()
+            // })
+        })
+    </script>
+</body>
+
+</html>

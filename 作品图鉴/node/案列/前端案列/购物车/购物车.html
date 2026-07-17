@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 字体图标样式链接 -->
+    <link rel="stylesheet" href="./fonticon/iconfont.css">
+    <link rel="stylesheet" href="./css/public.css">
+    <link rel="stylesheet" href="./css/index.css">
+</head>
+
+<body>
+    <!-- 总容器 -->
+    <div class="box">
+        <!-- 头部搜索模块 -->
+        <div class="header">
+            <!-- 金额 -->
+            <div class="money">
+                <span>
+                    <svg class="icon" aria-hidden="true">
+                        <use xlink:href="#icon-qian"></use>
+                    </svg>
+                </span><span long="overallbalance">1000</span><span>.00</span>
+            </div>
+            <!-- 搜索 -->
+            <div class="inp">
+                <input type="text" placeholder="请输入关键字">
+                <button class="sousuo"><span class="iconfont">&#xe609</span></button>
+            </div>
+        </div>
+        <!-- 商品模块 -->
+        <div class="goods"> 
+            <ul>
+                <!-- map遍历 -->
+            </ul>
+        </div>
+        <!-- 没有搜索到商品时显示 -->
+        <div class="noresult">没有搜索到商品</div>
+        <!-- 结算模块 -->
+        <div class="settlement">
+            <div class="sumup">
+                <div><span>结算</span><span class="totalprice">0</span><span>元</span></div>
+                <button>支付</button>
+            </div>
+        </div>
+    </div>
+    <script src="./fonticon/iconfont.js"></script>
+    <script src="./js/data.js"></script>
+    <script src="./js/index.js"></script>
+</body>
+
+</html>

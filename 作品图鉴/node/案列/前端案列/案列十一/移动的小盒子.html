@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .box {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+        }
+
+        button {
+            margin-top: 10px;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box"></div>
+    <button>点击开始</button>
+    <button>点击结束</button>
+    <script>
+        const box = document.querySelector('.box')
+        const btns = document.querySelectorAll('button')
+        let num = 0
+        let speed = 15
+        let maxDistance = innerWidth - box.offsetWidth
+        let timer = null
+        function forWord() {
+            clearInterval(timer)
+            timer = setInterval(() => {
+                //负负得正
+                if (num >= maxDistance) speed = -speed 
+                if (num < 0) speed = -speed   
+                num += speed
+                box.style.transform = `translateX(${num}px)`
+            }, 16.67)
+        }
+
+        btns[0].onclick = forWord
+        btns[1].onclick = () => {
+            clearInterval(timer)
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .box {
+            width: 500px;
+            height: 50px;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            position: relative;
+        }
+
+        .son {
+            width: 0;
+            height: 100%;
+            background-color: skyblue;
+            position: absolute;
+            border-radius: 20px;
+            top: 0;
+            transition: all 5s linear;
+            text-align: right;
+        }
+
+        .box span {
+            line-height: 50px;
+            z-index: 10;
+
+
+        }
+
+        button {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+
+        <div class="son">
+            <span><span class="zore">0</span>%</span>
+        </div>
+    </div>
+    <button>安装</button>
+    <script>
+        const btn = document.querySelector('button')
+        const son = document.querySelector('.son')
+        const zore = document.querySelector('.zore')
+        const box = document.querySelector('.box')
+        let boxW = box.offsetWidth
+        let sonW = son.offsetWidth
+        let timer = null
+        let sum = 0
+        function loadSchedule() {
+            son.style.width = '100%'
+            timer = setInterval(() => {
+                let sonW = son.offsetWidth
+                sum = sonW / boxW * 100 //百分比的关系
+                zore.innerHTML = sum.toFixed()
+                if (zore.innerHTML === '100') clearInterval(timer)
+            }, 0)
+
+
+        }
+        btn.onclick = loadSchedule
+    </script>
+</body>
+
+</html>

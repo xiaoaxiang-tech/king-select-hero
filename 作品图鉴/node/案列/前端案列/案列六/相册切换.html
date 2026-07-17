@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        .box {
+            width: 700px;
+            height: 400px;
+            /* background-color: red; */
+        }
+        .big {
+            width: 100%;
+            height: 300px;
+            /* background-color: red; */
+            margin-bottom: 10px;
+        }
+        .small {
+            width: 100%;
+            height: 100px;
+            /* background-color: skyblue; */
+            display: flex;
+            justify-content: space-between;
+        }
+        .small div {
+            margin: 0 10px;
+        }
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .small div:nth-child(1),.small div:nth-child(4) {
+            margin: 0;
+        }
+        .small div:nth-child(2) {
+            margin-right: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <div class="big">
+            <img src="./imgages/1.png" alt="">
+        </div>
+        <div class="small">
+            <div>
+                <img src="./imgages/1.png" alt="">
+            </div>
+            <div>
+                <img src="./imgages/2.png" alt="">
+            </div>
+            <div>
+                <img src="./imgages/3.png" alt="">
+            </div>
+            <div>
+                <img src="./imgages/4.png" alt="">
+            </div>
+        </div>
+    </div>
+    <script>
+      const smallImg = document.querySelectorAll('.small img')
+      const bigImg = document.querySelector('.big img')
+      let arr = ['1.png','2.png','3.png','4.png']
+      for (let i = 0; i < smallImg.length; i++) {
+        smallImg[i].onmouseover = () => {
+           bigImg.src = `./imgages/${arr[i]}`
+        }
+      }
+      
+      
+    </script>
+</body>
+</html>

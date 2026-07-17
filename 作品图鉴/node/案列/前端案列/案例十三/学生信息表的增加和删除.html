@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .box {
+            width: 500px;
+            margin: 30px auto;
+        }
+
+        .inputArea {
+            width: 100%;
+            height: 300px;
+            border: 2px solid #000;
+            position: relative;
+            padding: 0 10px;
+        }
+
+        .inputArea span {
+            position: absolute;
+            top: -11.9px;
+            background-color: #fff;
+        }
+
+        .inputArea form {
+            height: 297px;
+            /* background-color: turquoise; */
+            padding: 20px 0;
+        }
+
+        .inputArea form input {
+            margin: 10px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        table tr,
+        td {
+            height: 30px;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+
+        table thead {
+            font-weight: 900;
+            background-color: rgb(14, 196, 14);
+        }
+
+        table tbody td:nth-child(5) {
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div class="inputArea">
+            <span>学生录入系统</span>
+            <form>
+                姓名:<input type="text"><br>
+                年龄:<input type="text"><br>
+                性别:<select name="" id=""><br>
+                    <option value="男">男</option>
+                    <option value="女">女</option>
+                </select><br>
+                手机:<input type="text"><br>
+                <button class="btn" style="cursor: pointer;">确认提交</button>
+            </form>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <td>姓名</td>
+                    <td>年龄</td>
+                    <td>性别</td>
+                    <td>手机</td>
+                    <td>删除</td>
+                </tr>
+            </thead>
+            <tbody>
+                 <!-- map -->
+            </tbody>
+
+        </table>
+    </div>
+    <script>
+        let data = [
+            {
+                name: '张三',
+                age: '18',
+                sex: '男',
+                phone: '15511111111',
+                del: '删除',
+            },
+        ]
+
+        function init() {
+            const newArr = data.map(item => {
+                return `
+                   <tr>
+                     <td>${item.name}</td>
+                    <td>${item.age}</td>
+                    <td>${item.sex}</td>
+                    <td>${item.phone}</td>
+                    <td class='del'>${item.del}</td>
+                    </tr>
+            `
+            }).join('')
+            const tbody = document.querySelector('tbody')
+            tbody.innerHTML = newArr
+            const dels = document.querySelectorAll('.del')
+            for (let i = 0; i < dels.length; i++) {
+                dels[i].onclick = () => {
+                    del(dels[i],i)
+                }
+            }
+        }
+        init()
+
+
+        const inps = document.querySelectorAll('input')
+        const select = document.querySelector('select')
+        const btn = document.querySelector('.btn')
+        const form = document.querySelector('form')
+        btn.onclick = () => {
+            empty()
+        }
+        function empty() {
+            for (let i = 0; i < inps.length; i++) {
+                if (inps[i].value.trim() === '') {
+                    return alert('输入框不能为空')
+                }
+            }
+            add()
+            clear()
+
+        }
+        function add() {
+            data.push({
+                name: inps[0].value.trim(),
+                age: inps[1].value.trim(),
+                sex: select.value,
+                phone: inps[2].value.trim(),
+                del: '删除'
+            })
+            init() //重新渲染
+
+        }
+        function clear() {
+            //清空输入框
+            for (let i = 0; i < inps.length; i++) {
+                inps[i].value = ''
+            }
+        }
+
+        function del (item,index) {
+            // 先从数组删除指定的数据
+            data.splice(index,1)
+            init() //重新渲染
+        }
+        form.onsubmit = (e) => e.preventDefault() 
+    </script>
+</body>
+
+</html>

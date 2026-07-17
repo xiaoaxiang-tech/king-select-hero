@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        .box {
+            width: 500px;
+            height: 300px;
+            /* background-color: red; */
+        }
+        .head {
+            width: 100%;
+            height: 80px;
+         
+        }
+        ul {
+            list-style: none;
+            display: flex;
+            height: auto;
+            justify-content: space-around;
+        }
+        ul li {
+            background-color: #ccc;
+            width: 100px;
+            height: 50px;
+            line-height: 50px;
+            font-size: 20px;
+            border-radius: 15px;
+            text-align: center;
+            cursor: pointer;
+        }
+        .content {
+            width: 100%;
+            height: calc(300px - 30px);
+            /* background-color: red; */
+        }
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <div class="head">
+            <ul>
+                <li>大橘</li>
+                <li>英短</li>
+                <li>美短</li>
+                <li>布偶</li>
+            </ul>
+        </div>
+        <div class="content">
+            <img src="./imgages/1.png" alt="">
+        </div>
+    </div>
+    <script>
+        const lis = document.querySelectorAll('li')
+        const img = document.querySelector('img')
+        
+        let imgs = ['1.png','2.png','3.png','4.png']
+        
+        for (let i = 0; i < lis.length; i++) {
+           lis[i].onmouseover = () => {
+              img.src = `./imgages/${imgs[i]}`
+              for (let i = 0; i < lis.length; i++) {
+                 lis[i].style.backgroundColor = ''
+              }
+               lis[i].style.backgroundColor = 'red'
+           }
+            
+        }
+    </script>
+</body>
+</html>

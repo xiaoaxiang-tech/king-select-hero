@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        ul {
+            list-style: none;
+        }
+        textarea {
+            height: 150px;
+        }
+        .box {
+            width: 200px;
+            height: 200px;
+            border: 1px solid #ccc;
+            margin-top: 20px;
+            overflow: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>敏感词过滤</h1>
+     <textarea name="" id="" rows="50"></textarea><br>
+     <button>发布</button>
+     <div class="box">
+        <ul></ul>
+     </div>
+    <script>
+        const textarea = document.querySelector('textarea')
+        const button = document.querySelector('button')
+        const box = document.querySelector('.box')
+        const ul = document.querySelector('ul')
+        const sensitiveWordsArr = ['妈的','死东西','尼玛','老不死的','你要完了']
+        console.log(sensitiveWordsArr.join('|'));
+        
+        function createDom () {
+            if (textarea.value.trim() === '') return alert('文本与不能为空')
+       
+            const li = document.createElement('li')
+            ul.appendChild(li)
+            const sensitiveWords = new RegExp(sensitiveWordsArr.join('|'),'gi')
+            const filteredText = textarea.value.replace(sensitiveWords,'***')
+            li.innerHTML = filteredText
+            textarea.value = ''
+        }
+        button.onclick = createDom
+        textarea.onkeydown = (e) => {
+            if (e.keyCode === 13) createDom() 
+        }
+    </script>
+</body>
+</html>

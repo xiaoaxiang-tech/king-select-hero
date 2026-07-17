@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>模糊雪花下落动画</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 100vw;
+            height: 100vh;
+            position: fixed;
+            overflow: hidden;
+            background-image: url(./true.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        canvas {
+            /* background-color: #000; */
+        }
+    </style>
+</head>
+
+<body>
+    <canvas></canvas>
+    <script>
+        const canvas = document.querySelector('canvas')
+        const ctx = canvas.getContext('2d')
+        canvas.width = innerWidth
+        canvas.height = innerHeight
+
+        // 雪花类：每个雪花拥有独立的位置、速度、大小、模糊度属性
+        class Circle {
+            constructor(color) {
+                this.color = color || '#fff'; // 雪花颜色
+                // 1. 初始位置（X随机，Y初始在画布上方，可能为负数，实现从顶部飘落效果）
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * -canvas.height; // 初始在画布外上方
+
+                // 2. 速度（差异化：X横向速度有正有负，实现不同角度；Y下落速度不同，有快有慢）
+                this.speedX = (Math.random() - 0.5) * 2; // X速度：-1 ~ 1 之间，左右偏移
+                this.speedY = Math.random() * 3 + 1; // Y速度：1 ~ 4 之间，下落速度不同
+
+                // 3. 雪花大小（固定初始大小，不再每次绘制随机变）
+                this.radius = Math.floor(Math.random() * (7 - 5) + 5); // 5 ~ 6 之间（原代码范围）
+                
+                // 4. 雪花模糊度（随机差异化，增强自然感）
+                this.blur = Math.random() * 3 + 1; // 1 ~ 4 之间的模糊度，可调整范围
+            }
+
+            // 绘制雪花（添加模糊效果）
+            draw() {
+                ctx.beginPath()
+                // 设置模糊效果（关键：阴影颜色与雪花颜色一致，shadowBlur控制模糊程度）
+                ctx.shadowColor = this.color; // 阴影颜色和雪花颜色相同，避免出现异色阴影
+                ctx.shadowBlur = this.blur; // 模糊半径，值越大越模糊
+                
+                // 绘制圆形雪花
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2)
+                ctx.fillStyle = this.color; // 单独设置每个雪花颜色
+                ctx.fill()
+                
+                // 重置阴影属性（可选：避免后续绘制继承模糊效果，若只有雪花可省略）
+                ctx.shadowBlur = 0;
+            }
+
+            // 更新雪花位置（核心：实现下落和横向偏移）
+            update() {
+                // 根据自身速度更新位置
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                // 边界检测：雪花落到画布下方/左右两侧时，重置到画布上方重新飘落
+                if (this.y > canvas.height + this.radius || 
+                    this.x < -this.radius || 
+                    this.x > canvas.width + this.radius) {
+                    this.reset();
+                }
+            }
+
+            // 重置雪花位置和属性（重置时同步更新模糊度）
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * -canvas.height; // 重新从上方飘落
+                this.speedX = (Math.random() - 0.5) * 2; // 重新随机横向速度
+                this.speedY = Math.random() * 3 + 1; // 重新随机下落速度
+                this.radius = Math.floor(Math.random() * (7 - 5) + 5); // 重新随机大小
+                this.blur = Math.random() * 3 + 1; // 重新随机模糊度，保持多样性
+            }
+        }
+
+        // 批量创建雪花实例（存储在数组中）
+        let snowflakes = [];
+        const snowCount = 200; // 雪花数量
+        for (let i = 0; i < snowCount; i++) {
+            snowflakes.push(new Circle('#fff')); // 可传入浅蓝等颜色，如 `new Circle('#f0f8ff')`
+        }
+
+        // 动画循环：持续绘制和更新雪花
+        function animate() {
+            // 清空画布（无拖影，若要柔和拖影可换回半透明填充）
+            ctx.clearRect(0, 0, canvas.width, canvas.height)
+            
+            // 遍历所有雪花，更新位置并绘制
+            snowflakes.forEach(snowflake => {
+                snowflake.update();
+                snowflake.draw();
+            });
+
+            // 递归调用，实现连续动画
+            requestAnimationFrame(animate);
+        }
+
+        // 启动动画
+        animate();
+
+        // 窗口大小变化时，重置画布尺寸和雪花位置
+        window.addEventListener('resize', () => {
+            canvas.width = innerWidth;
+            canvas.height = innerHeight;
+            // 重置所有雪花位置
+            snowflakes.forEach(snowflake => {
+                snowflake.reset();
+            });
+        });
+    </script>
+</body>
+</html>

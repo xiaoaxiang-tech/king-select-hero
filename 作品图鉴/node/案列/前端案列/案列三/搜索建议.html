@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+      li {
+        list-style: none;
+        margin: 10px;
+
+      }
+        :root {
+            --height-form: 30px;
+        }
+
+        .box {
+            width: 400px;
+            height: 300px;
+            margin: 0 auto;
+
+        }
+
+        .head {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .box input {
+            padding-left: 10px;
+            width: 300px;
+            height: var(--height-form);
+            border: 1px solid #ccc;
+            outline: blue;
+        }
+
+        button {
+            width: 80px;
+            height: var(--height-form);
+            border: 1px solid #ccc;
+            background-color: #ccc;
+            cursor: pointer;
+        }
+
+        .content {
+            width: calc(100% - 6.25rem);
+            height: calc(300px - var(--height-form));
+            border: 1px solid #ccc;
+            display: none;
+        }
+
+        .nofind {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div class="head">
+            <input type="text" placeholder="请输入课程">
+            <button>提交</button>
+        </div>
+        <div class="content">
+            <ul>
+
+            </ul>
+            <div class="nofind">没有找到</div>
+        </div>
+    </div>
+    <script>
+        let arr = ['web前端精英特训班980元', 'HTML核心技术199元', 'css核心技术 599元', 'CSS+HTML核心技术 299', 'web前端在线商城99元', 'Javascript核心技术 399元', 'JAvascript高级技术 899元']
+        const input = document.querySelector('input')
+        const content = document.querySelector('.content')
+        const ul = document.querySelector('ul')
+        const nofind = document.querySelector('.nofind')
+        
+
+        
+        function show() {
+            content.style.display = 'block'
+        }
+        function closeEyes() {
+            content.style.display = 'none'
+        }
+        function includeInput() {
+          const newArr = arr.map((item,index) => {
+            return `
+             <li>${item}</li>
+            `
+           }).join('')
+           
+           ul.innerHTML = newArr 
+           
+           const li = document.querySelectorAll('li')
+           for (let i = 0; i < li.length; i++) {
+            li[i].style.display = 'none'
+            if (new RegExp(input.value,'i').test(arr[i])) {
+                li[i].style.display = 'block'
+            } 
+              for (let i = 0; i < li.length; i++) {
+                  if (li[i].style.display === 'block') {
+                    nofind.style.display = 'none'
+                    break
+                  } else {
+                    nofind.style.display = 'block'
+                  }
+              }
+            
+           }
+
+        }
+        input.onfocus = () => {
+            show()
+        }
+        input.onblur = closeEyes
+        let timer = null
+        input.oninput = () => {
+            clearTimeout(timer)
+            timer = setTimeout(() => {
+                includeInput()
+            }, 500)
+        }
+    </script>
+</body>
+
+</html>

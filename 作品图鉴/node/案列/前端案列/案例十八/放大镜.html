@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        .father {
+            width: 10000px;
+            height: 1000px;
+            /* background-color: skyblue; */
+            margin: 0 auto;
+            display: flex;
+        }
+        .box {
+            width: 400px;
+            height: 400px;
+            background-color: red;
+            position: relative;
+        }
+
+        .box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .son {
+            width: 200px;
+            height: 200px;
+            background-color: yellow;
+            opacity: 0.3;
+            position: absolute;
+            top: 0;
+            display: none;
+        }
+
+        .bigImg {
+            width: 400px;
+            height: 400px;
+            margin-left: 50px;
+            display: none;
+            position: relative;
+        }
+        .bigson {
+            width: 400px;
+            height: 400px;
+            background-color: red;  
+            overflow: hidden; 
+            margin-left: 20px;     
+            display: none; 
+
+        }
+        .bigson img {
+            width: 1600px;
+            height: 1600px;
+            object-fit: cover;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="father">
+        <div class="box">
+            <img src="./imgages/1.png" alt="">
+            <div class="son"></div>
+        </div>
+          
+              <div class="bigson">
+                <img src="./imgages/1.png" alt="">
+              </div>
+
+    </div>
+    <script>
+        const box = document.querySelector('.box')
+        const son = document.querySelector('.son')
+        const bigImg = document.querySelector('.bigson')
+        const bigImgSon = document.querySelector('.bigson img')
+        console.log(bigImgSon);
+        
+        function sonShow(e) {
+            son.style.display = 'block'
+            bigImg.style.display = 'block'
+            box.onmousemove = move
+        }
+        function closeSon() {
+            son.style.display = 'none'
+            bigImg.style.display = 'none'
+
+            box.onmousemove = null
+        }
+        function move(e) {
+            
+            let x = e.clientX - box.offsetLeft
+            let y = e.clientY - box.offsetTop
+            let sonW = son.offsetWidth
+            let sonH = son.offsetHeight
+            let bigLeft = bigImgSon.offsetWidth / box.offsetWidth
+            let bigTop = bigImgSon.offsetHeight / box.offsetHeight
+            console.log(bigLeft,bigTop);
+            
+            let sonLeft = x - (sonW / 2)
+            let sonTop = y - (sonH / 2)
+
+            if (sonLeft < 0) sonLeft = 0
+            if (sonTop < 0) sonTop = 0
+            if (sonLeft > box.offsetWidth / 2) sonLeft = box.offsetWidth / 2
+            if (sonTop > box.offsetHeight / 2) sonTop = box.offsetHeight / 2
+            son.style.transform = `translate(${sonLeft}px,${sonTop}px)` //小盒子移动距离
+            bigImgSon.style.transform = `translate(-${sonLeft * bigLeft}px,-${sonTop * bigTop}px)` //大图片移动距离
+
+        }
+        box.onmouseenter = sonShow
+        box.onmouseleave = closeSon
+
+    </script>
+</body>
+
+</html>

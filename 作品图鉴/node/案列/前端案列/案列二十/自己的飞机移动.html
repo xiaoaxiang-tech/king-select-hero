@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+         body {
+            overflow: hidden;
+         }
+        .box {
+            width: 442px;
+            height: 785px;
+            background: url(./images/场景.png) no-repeat;
+            background-size: cover;
+            position: relative;
+        }
+        
+        .small {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 0;
+            width: 127px;
+            height: 110.5px;
+            transition: all 0.1s linear;
+        }
+        .zzc {
+            position: absolute;
+            width: 442px;
+            height: 785px;
+            top: -785px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+      
+            <img src="./images/场景.png" alt="" class="zzc">
+    </div>
+    <img src="./images/飞机.png" alt="" class="small">
+    <script>
+        const small = document.querySelector('.small')
+        const box = document.querySelector('.box')
+        let speed = 30
+        let bgc = 0.5
+        let smallH = small.offsetHeight
+        let boxH = box.offsetHeight
+        let smallW = small.offsetWidth
+        let boxW = box.offsetWidth
+        function move(e) {
+            if (e.keyCode === 87 || e.keyCode === 38) {
+                // 上
+                small.style.top = (small.offsetTop - speed) + 'px'
+                if (small.offsetTop < 0) {
+                    small.style.top = 0
+                }
+                //    console.log(small.offsetTop);
+            } else if (e.keyCode === 83 || e.keyCode === 40) {
+                // 下
+                small.style.top = (small.offsetTop + speed) + 'px'
+                if (small.offsetTop > (boxH - smallH)) {
+                    small.style.top = (boxH - smallH) + 'px'
+                }
+
+            } else if (e.keyCode === 65 || e.keyCode === 37) {
+                // 左
+                small.style.left = (small.offsetLeft - speed) + 'px'
+
+                if (small.offsetLeft < 0 + (smallW / 2)) {
+                    small.style.left = 0 + (smallW / 2) + 'px'
+                }
+            } else if (e.keyCode === 68 || e.keyCode === 39) {
+                // 右
+                small.style.left = (small.offsetLeft + speed) + 'px'
+                if (small.offsetLeft > (boxW - smallW) + smallW / 2) {
+                    small.style.left = (boxW - smallW) + smallW / 2 + 'px'
+                }
+
+
+            }
+
+        }
+ 
+        function bgcMove () {
+           box.style.top = (box.offsetTop + bgc) + 'px'
+           if (box.offsetTop > boxH) {
+            box.style.top = 0
+           }
+        }
+        setInterval(bgcMove,16.6)
+        document.addEventListener('keydown',(e) => {
+            e.preventDefault()
+            move(e)
+        },{passive: false})
+    </script>
+</body>
+
+</html>

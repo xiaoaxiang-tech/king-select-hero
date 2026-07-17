@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas></canvas>
+    <script>
+        const canvas = document.querySelector('canvas')
+        const ctx = canvas.getContext('2d')
+        canvas.width = innerWidth
+        canvas.height = innerHeight
+        let raduis = {
+            x: canvas.width / 2,
+            y: canvas.height / 2,
+            speedX: 0.15,
+            speedY: 0.15,
+        }
+
+        let mousePos = {
+            x:raduis.x,
+            y:raduis.y
+        }
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height)
+            ctx.fillStyle = 'red'
+            ctx.beginPath()
+            ctx.arc(raduis.x, raduis.y, 50, 0, Math.PI * 2)
+            ctx.fill()
+        }
+
+        function update() {
+            raduis.x += (mousePos.x - raduis.x) * raduis.speedX
+            raduis.y +=  (mousePos.y - raduis.y) * raduis.speedY
+        }
+
+        function anmation() {
+            draw()
+            update()
+            requestAnimationFrame(anmation)
+        }
+        canvas.onmousemove = (e) => {
+              mousePos.x = e.pageX
+              mousePos.y = e.pageY
+        }
+        requestAnimationFrame(anmation)
+    </script>
+</body>
+
+</html>

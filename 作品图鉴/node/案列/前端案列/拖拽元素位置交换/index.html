@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .box {
+            width: 800px;
+            background-color: red;
+            margin: 20px auto;
+        }
+
+        .box div {
+            width: 100%;
+            height: 60px;
+            background-color: orange;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 10px 0;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 20px;
+            font-weight: 900;
+            font-family: 宋体;
+            position: relative;
+        }
+
+        .box .active {
+            background-color: green;
+            /* transition: all 1s; */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+        <div>4</div>
+        <div>5</div>
+    </div>
+    <script>
+        class Pos {
+            constructor() {
+                this.px = 0,
+                    this.py = 0
+            }
+        }
+        const divAll = document.querySelectorAll('.box div')
+        let activeStack = []
+        let resEl
+        function move(e, index) {
+            let x = e.movementX
+            let y = e.movementY
+            let el = divAll[index]
+            arr[index].px += x, arr[index].py += y
+            el.style.transform = `translate(${arr[index].px}px,${arr[index].py}px)`
+            resEl = null
+            let maxArea = 0
+            // resEl = null
+            for (let i = 0; i < divAll.length; i++) {
+                if (i === index) continue //元素等于自己
+                let elpos = divAll[i]  //比较元素
+                let dropPos = divAll[index]  //拖拽元素
+                if (isElIntersect(dropPos, elpos)) {
+                    let areamax = areaMaxFun(dropPos, elpos)
+                    if (areamax > maxArea) {
+                        maxArea = areamax
+                        resEl = elpos
+                    }
+                }
+            }
+            if (resEl && activeStack.length < 1) {
+                activeStack.push(resEl)
+                activeStack[0].classList.add('active')
+            }
+            if (resEl) {
+                let flag = Array.from(resEl.classList).includes('active')
+                if (!flag) {
+                    activeStack[0].classList.remove('active')
+                    activeStack.pop()
+                    activeStack.push(resEl)
+                    activeStack[0].classList.add('active')
+                }
+            } else {
+                if (!activeStack.length) return
+                activeStack[0].classList.remove('active')
+                activeStack = []
+            }
+        }
+        // 判断相交元素并返回
+        function isElIntersect(drop, isIntersect) {
+            let { x: dropX, y: dropY, width: dropW, height: dropH } = drop.getBoundingClientRect()
+            let { x: isIntersectX, y: isIntersectY, width: isIntersectW, height: isIntersectH } = isIntersect.getBoundingClientRect()
+            if (
+                dropX + dropW >= isIntersectX
+                && dropX < isIntersectX + isIntersectW
+                && dropY + dropH >= isIntersectY
+                && dropY < isIntersectY + isIntersectH
+            ) {
+                return true
+            }
+
+        }
+        // 计算最大相交面积
+        function areaMaxFun(drop, isIntersect) {
+            let { x: dropX, y: dropY, width: dropW, height: dropH } = drop.getBoundingClientRect()
+            let { x: isIntersectX, y: isIntersectY, width: isIntersectW, height: isIntersectH } = isIntersect.getBoundingClientRect()
+            let left = Math.max(dropX, isIntersectX)
+            let right = Math.min(dropX + dropW, isIntersectX + isIntersectW)
+            let top = Math.max(dropY, isIntersectY)
+            let bottom = Math.min(dropY + dropH, isIntersectY + isIntersectH)
+            return (right - left) * (bottom - top)  //长 * 宽
+        }
+        let arr = []
+        for (let i = 0; i < divAll.length; i++) {
+            arr.push(new Pos())
+            divAll[i].addEventListener('mousedown', (e) => {
+                e.preventDefault()
+                let { x: dropX, y: dropY } = divAll[i].getBoundingClientRect()
+                document.onmousemove = (e) => {
+                    move(e, i)
+                }
+                document.onmouseup = (e) => {
+                    document.onmousemove = null
+                    arr[i].px = 0
+                    arr[i].py = 0
+                    // 没有相交回到原位
+                    if (!resEl) {
+                        divAll[i].style.transform = `translate(0,0)`
+                        divAll[i].style.transition = 'all .5s'
+                        divAll[i].ontransitionend = () => {
+                            divAll[i].style.transition = 'none'
+                            divAll[i].ontransitionend = null
+                        }
+                        return
+                    }
+                    let parent = resEl.parentNode
+                    const next1 = divAll[i].nextElementSibling
+                    const next2 = resEl.nextElementSibling
+                    parent.insertBefore(divAll[i], next2)
+                    parent.insertBefore(resEl, next1)
+                    divAll[i].style.transform = `translateX(0)`
+                    activeStack[0].classList.remove('active')
+                    activeStack = []
+                    let { x: dropXend, y: dropYend } = divAll[i].getBoundingClientRect()
+                    //有了开始位置又有了结束位置我们就可以进行invert了
+                    const bExchangeX = dropX - dropXend
+                    const bExchangeY = dropY - dropYend
+                    const lExchangeX = dropXend - dropX
+                    const lExchangeY = dropYend - dropY
+                    divAll[i].style.transform = `translate(${bExchangeX}px,${bExchangeY}px)`
+                    resEl.style.transform = `translate(${lExchangeX}px,${lExchangeY}px)`
+                    divAll[i].clientHeight
+                    resEl.clientHeight
+                    divAll[i].style.transform = `none`
+                    divAll[i].style.transition = 'all .5s'
+                    resEl.style.transform = `none`
+                    resEl.style.transition = 'all .5s'
+                    divAll[i].ontransitionend = () => {
+                        divAll[i].style.transition = 'none'
+                        divAll[i].ontransitionend = null
+                    }
+                    resEl.ontransitionend = () => {
+                        resEl.style.transition = 'none'
+                        resEl.ontransitionend = null
+                    }
+                }
+            })
+        }
+    </script>
+</body>
+
+</html>

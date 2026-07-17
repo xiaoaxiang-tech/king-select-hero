@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+         body {
+            overflow: hidden;
+         }
+        .box {
+            width: calc(1920px / 2);
+            height: calc(1200px / 2);
+            /* background-color: red; */
+            margin: 30px auto;
+            position: relative;
+            perspective: 600px;
+        }
+
+        .bgc {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            z-index: -1;
+        }
+
+        .person {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.2s;
+            filter: drop-shadow(50px 50px 50px rgba(0, 0, 0, 0.3))
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <img src="./images/填充图片背景.png" alt="" class="bgc">
+        <img src="./images/人物.png" alt="" class="person">
+    </div>
+    <script>
+        const box = document.querySelector('.box')
+        const person = document.querySelector('.person')
+        let rx = [-30, 30]
+        let ry = [-30, 30]
+        let { offsetWidth, offsetHeight } = box
+
+        //  映射公式
+        function getMapVal(doneVal, maxVal, MapVal) {
+            return (doneVal / maxVal) * (MapVal[1] - MapVal[0]) + MapVal[0]
+        }
+
+        function move(e) {
+            let { offsetX, offsetY } = e
+            let itemrx = getMapVal(offsetX, offsetWidth, rx)
+            let itemry = getMapVal(offsetY, offsetHeight, ry)
+            person.style.transform = `rotateX(${-itemry}deg) rotateY(${itemrx}deg)`;
+
+        }
+
+        function leave() {
+            person.style.transform = `rotateX(0deg) rotateY(0deg)`;
+
+
+        }
+        box.addEventListener('mousemove', move)
+        box.addEventListener('mouseleave', leave)
+    </script>
+</body>
+
+</html>

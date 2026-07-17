@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 字体图标样式链接 -->
+    <link rel="stylesheet" href="./fonticon/iconfont.css">
+    <link rel="stylesheet" href="./css/public.css">
+    <link rel="stylesheet" href="./css/payment.css">
+</head>
+
+<body>
+    <!-- 遮罩层 -->
+    <div class="mask">
+        <!-- 设置密码 -->
+        <div class="setpwd">
+            <div>
+                <!-- 头部 -->
+                <div class="head">
+                    <span class="iconfont icon close">&#xe67d</span>
+                    <p>设置支付密码</p>
+                </div>
+                 <div class="bodyinppwd">
+                    <input type="password" placeholder="请输入6位数字密码" maxlength="6">
+                    <p>请输入6位数字密码</p>
+                 </div>
+                <button>完成</button>
+            </div>
+        </div>
+        <!-- 修改密码 -->
+        <div class="updatepwd">
+            <div>
+                <p>修改支付密码</p>
+                <input type="password" placeholder="请输入原密码" maxlength="6"><br>
+                <input type="password" placeholder="请输入新密码" maxlength="6"><br>
+                <button>确认</button>
+            </div>
+        </div>
+    </div>
+    <!-- 总容器 -->
+    <div class="box">
+        <div class="top">
+            <!-- 头部区域 -->
+            <div class="header">
+                <span class="iconfont icon">&#xe67d</span>
+                <div>
+                    <span class="iconfont icon" long="setpwd">&#xe61e</span>
+                    <span class="iconfont icon" long="updatepwd">&#xe695</span>
+                </div>
+
+            </div>
+            <!-- 主体区域 -->
+            <div class="body">
+                <div class="Paymentamount">
+                    <p>向吴阳骏付款</p>
+                    <span>￥</span>
+                    <span class="paytotle">100</span>
+                    <span>.00</span>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="paypaw">
+                <input type="password" readonly>
+                <input type="password" readonly>
+                <input type="password" readonly>
+                <input type="password" readonly>
+                <input type="password" readonly>
+                <input type="password" readonly>
+            </div>
+            <div class="Inputfield">
+                <div onclick="inpdata(event)">1</div>
+                <div onclick="inpdata(event)">2</div>
+                <div onclick="inpdata(event)">3</div>
+                <div onclick="inpdata(event)">4</div>
+                <div onclick="inpdata(event)">5</div>
+                <div onclick="inpdata(event)">6</div>
+                <div onclick="inpdata(event)">7</div>
+                <div onclick="inpdata(event)">8</div>
+                <div onclick="inpdata(event)">9</div>
+                <div onclick="emptyall()">c</div>
+                <div onclick="inpdata(event)">0</div>
+                <div class="iconfont" onclick="del(event)">&#xe62f</div>
+            </div>
+        </div>
+    </div>
+    <script src="./js/payment.js"></script>
+</body>
+
+</html>

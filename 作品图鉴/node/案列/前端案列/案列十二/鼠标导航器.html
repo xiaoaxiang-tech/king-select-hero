@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .box {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box"></div>
+    <script>
+        const boxormouse = document.querySelector('.box')
+
+        function moves(e) {
+            let x = e.clientX - boxormouse.offsetWidth / 2  //获取浏览器可视区域的宽高（不包含滚动条的距离）
+            //    let x2 = e.pageY // 浏览器真实的宽高（包含滚动条的距离）
+            let y = e.clientY - boxormouse.offsetHeight / 2
+            
+            boxormouse.style.transform = `translate(${x}px,${y}px)`
+            
+        }
+
+
+        document.onmousemove = moves
+    </script>
+</body>
+
+</html>

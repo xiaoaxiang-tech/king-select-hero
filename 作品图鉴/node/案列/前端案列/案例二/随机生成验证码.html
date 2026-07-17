@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            margin: 0 auto;
+            width: 500px;
+            height: 300px;
+        }
+        .a {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+        }
+        .password {
+            width: fit-content;
+            background-color: #ccc;
+            font-size: 30px;
+            color: blue;
+            padding: 0 10px;
+ 
+ 
+        }
+        .look {
+            color: aquamarine;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+        input {
+            width: 100px;
+            height: 30px;
+            outline: aquamarine;
+            border: 1px solid aquamarine;
+        }
+        button {
+            width: 50px;
+            height: 25px;
+            border: 1px solid #ccc;
+            outline: none;
+            margin: 15px 0;
+            cursor: pointer;
+            text-align: center;
+            
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <div class="a"><div class="password"><em>adf34y</em></div><span class="look">看不清换一张</span></div>
+        <span>验证码:</span><input type="text" autofocus><br>
+         <button>确定</button>
+    </div>
+    <script>
+        function randomZHi () {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'; // 包含大小写字母和数字
+            let index = 6
+            let char = ''
+            for (let i = 0; i < index; i++) {
+                let ran = Math.floor( Math.random() * chars.length)
+                 
+                 char += chars[ran]
+            }
+             return char //随机六位验证码
+        }
+       
+       
+       const look = document.querySelector('.look')
+       const password = document.querySelector('.password')
+       const input = document.querySelector('input')
+       const button = document.querySelector('button')
+       password.innerHTML = randomZHi() //默认
+       look.onclick = () => {
+          password.innerHTML = randomZHi()
+       }
+       button.onclick = () => {
+
+        if (input.value.trim() === '') return alert('不能空哦！！！')  
+        console.log(input.value,password.innerHTML);
+        
+        if (input.value === password.innerHTML) {
+            alert('成功')
+        } else {
+            alert('失败')
+            input.value = ''
+            
+        }
+       }
+    </script>
+</body>
+</html>

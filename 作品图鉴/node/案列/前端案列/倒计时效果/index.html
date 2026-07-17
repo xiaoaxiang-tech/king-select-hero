@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --radius: 20px
+        }
+
+        .box {
+            width: 500px;
+            /* background-color: red; */
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .box span {
+
+            font-size: 25px;
+            color: skyblue;
+            font-style: oblique;
+
+        }
+
+        .header {
+            width: 100%;
+            height: 20px;
+            border-radius: var(--radius);
+            background-color: #ccc;
+            margin-top: 15px;
+        }
+
+        .son {
+            width: 100%;
+            height: 100%;
+            border-radius: var(--radius);
+            background-color: skyblue;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <span></span>
+        <div class="header">
+            <div class="son"></div>
+        </div>
+    </div>
+    <script>
+
+
+        (function () {
+            const span = document.querySelector('span')
+            const header = document.querySelector('.header')
+            const son = document.querySelector('.son')
+            let num = 10 //打算20秒结束定时器
+            let timer = null //定义清除定时器变量
+            let dsqTimer = 16.667 // 定时器每16.667毫秒运行一次
+            /**
+             * 1. 20 * 1000 = 20000 约为 20秒
+             * 2. 除以 定时器每16.667毫秒运行一次
+             * 3. 得出定时器到底要运行多久变量
+            */
+            let sqlTimer = ((num * 1000) / dsqTimer).toFixed() //计时器要运行的时间  大概为20秒 （关键）
+            let { offsetWidth } = son
+            // 用进度条的宽度除以 计时器要运行的时间 这样的话定时结束进度条刚好加载完毕
+            let sonWidth = offsetWidth / sqlTimer
+
+            
+            let newSqlTimer = sqlTimer //因为需要保证sqlTimer不变 但是他又需要改变所以把他交给一个新变量改变新变量
+            let timeNum = sqlTimer / num // 得出newSqlTimer 每减这么多 num就需要减一
+            span.innerHTML = num + 's'
+            timer = setInterval(() => {
+                sqlTimer--
+                offsetWidth -= sonWidth
+                son.style.width = offsetWidth + 'px'
+                if (sqlTimer === (newSqlTimer - timeNum)) {
+                    newSqlTimer -= timeNum
+                    num--
+                    span.innerHTML = num + 's'
+                }
+                if (sqlTimer < 0) {
+                    return clearInterval(timer)
+                }
+            }, dsqTimer)
+
+        })()
+
+
+    </script>
+</body>
+
+</html>

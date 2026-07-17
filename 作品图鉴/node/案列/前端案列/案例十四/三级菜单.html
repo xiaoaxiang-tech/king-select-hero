@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        li {
+            width: 100px;
+            height: 30px;
+            text-align: center;
+            line-height: 30px;
+            background-color: red;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .box {
+            position: relative;
+        }
+
+        .two li:nth-child(1) {
+            background-color: skyblue;
+        }
+
+        .two li:nth-child(2) {
+            background-color: yellow;
+        }
+
+        .two li:nth-child(3) {
+            background-color: rgb(6, 170, 235);
+        }
+
+        .two li:nth-child(4) {
+            background-color: rgb(155, 155, 5);
+        }
+
+        .three li:nth-child(1) {
+            background-color: palegreen;
+        }
+
+        .three li:nth-child(2) {
+            background-color: rgb(18, 156, 236);
+        }
+
+        .three li:nth-child(3) {
+            background-color: rgb(235, 206, 12);
+        }
+
+        .two {
+            display: none;
+        }
+
+        .three {
+            position: absolute;
+            top: 0;
+            top: 30px;
+            left: 100px;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <ul class="one">
+            <li>一级菜单</li>
+        </ul>
+        <ul class="two">
+            <li>二级菜单1</li>
+            <li>二级菜单2</li>
+            <li>二级菜单3</li>
+            <li>二级菜单4</li>
+        </ul>
+        <ul class="three">
+            <li>三级菜单1</li>
+            <li>三级菜单2</li>
+            <li>三级菜单3</li>
+        </ul>
+    </div>
+    <script>
+        const one = document.querySelector('.one').children
+        const two = document.querySelector('.two').children
+        const three = document.querySelector('.three').children
+        let flag = null
+        function showTwo() {
+            if (flag) {
+                two[0].parentNode.style.display = 'none'
+                three[0].parentNode.style.display = 'none'
+                flag = false
+            } else {
+                two[0].parentNode.style.display = 'block'
+                flag = true
+            }
+        }
+
+        function showThree(index) {
+            let liHeight = one[0].offsetHeight
+            let distance = (index + 1) * liHeight
+            three[0].parentNode.style.top = distance + 'px'
+
+            three[0].parentNode.style.display = 'block'
+        }
+        one[0].onclick = showTwo
+
+        for (let i = 0; i < two.length; i++) {
+            two[i].onclick = () => {
+                showThree(i)
+            }
+
+        }
+
+
+
+    </script>
+</body>
+
+</html>
