@@ -5,7 +5,7 @@
 <script setup>
 import { btnForbid } from '@/stores/btn-forbid';
 import { forbidStore } from '@/stores/forbid';
-import { selectHero } from '@/stores/store';
+import { selectHero } from '@/stores/hero-select';
 import { ref } from 'vue'
 const btnforbids = btnForbid() //变量仓库
 const forbid = forbidStore() //禁用默认图片数据仓库

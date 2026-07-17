@@ -59,7 +59,7 @@ import heroByArea from './selecthero/hero-by-area.vue';
 import { v4 as uuidv4 } from 'uuid'
 import { forbidStore } from '@/stores/forbid';
 import { classifyHero } from '@/stores/classify-hero';
-import { selectHero } from '@/stores/store.js';
+import { selectHero } from '@/stores/hero-select.js';
 import { render } from '@/utils/API';
 import { onMounted, ref, useTemplateRef, reactive } from 'vue'
 import { classifyedArr, elementHeight, renderBetween } from '@/utils';
