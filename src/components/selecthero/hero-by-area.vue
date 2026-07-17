@@ -28,9 +28,11 @@ let p = defineProps(['heroData', 'byheroData', 'i', 'goyid'])
 let { left, top } = layout(p.i, p.byheroData)
 const btnforbids = btnForbid()
 
+const BASE_URL = import.meta.env.VITE_API_BASE || 'http://localhost:3000'
+
 // 通过后端代理缩放图片：2000px → 160px，体积从 MB → KB
 const thumbUrl = computed(() => {
-  return `http://localhost:3000/image?url=${encodeURIComponent(p.heroData.fmlb_4536)}&w=160`
+  return `${BASE_URL}/image?url=${encodeURIComponent(p.heroData.fmlb_4536)}&w=160`
 })
 </script>
 
