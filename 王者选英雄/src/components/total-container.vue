@@ -61,7 +61,7 @@ import { forbidStore } from '@/stores/forbid';
 import { classifyHero } from '@/stores/classify-hero';
 import { selectHero } from '@/stores/hero-select.js';
 import { render } from '@/utils/API';
-import { onMounted, ref, useTemplateRef, reactive } from 'vue'
+import { onMounted, ref, useTemplateRef, reactive, nextTick } from 'vue'
 import { classifyedArr, elementHeight, renderBetween } from '@/utils';
 import { btnForbid } from '@/stores/btn-forbid';
 const NewforbidStore = forbidStore() //响应式数组ref 禁用英雄数据
@@ -87,6 +87,8 @@ let heroindex = ref(0) //默认展示全部
 const mapForbid = reactive(new Map())  //缓存英雄列表
 const forbidhero = btnForbid()
 const forbid = forbidStore()
+const btnforbids = btnForbid()
+const selheros = selectHero() // 选择英雄仓库
 let isClick = ref(true)
 onMounted(async () => {
   let res = await render()
@@ -108,6 +110,7 @@ onMounted(async () => {
   }
   mapListHero()
   let ElHeight = elementHeight(byheroData)
+  await nextTick()
   byHeroContainer.value.style.height = ElHeight + 'px'
   renderInit() // 初始化渲染
 })
@@ -121,8 +124,16 @@ function ispick(item) {
   if (isClick.value) {
     forbidhero.isdisbale = false
     forbidhero.goyfilter = item.id
+
     if (forbidhero.indexForbid > forbid.LEftforbidInit.length - 1 && !forbidhero.flags) {
       forbidhero.indexForbid = null
+    }
+    if (forbidhero.indexForbid === null) {
+      if (btnforbids.selectionOrder[btnforbids?.index] === 'left') {
+        selheros.heroSelectLeft[btnforbids.selheroLeft].img = item.fmlb_4536
+      } else {
+        selheros.heroSelectRight[btnforbids.selheroRight].img = item.fmlb_4536
+      }
     }
   }
 }
@@ -175,10 +186,6 @@ function isclicker() {
       display: flex;
       justify-content: space-around;
       align-items: center;
-    }
-
-    .left {
-      /* border-right: 3px solid #ccc; */
     }
 
   }

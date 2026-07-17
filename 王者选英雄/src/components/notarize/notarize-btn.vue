@@ -13,28 +13,22 @@ const selheros = selectHero() // 默认英雄数据仓库
 const p = defineProps(['mapherolist'])
 const emit = defineEmits(['event-isClick'])
 let bol = ref(true)
-const selectionOrder = ref([
-  'left', 'right', 'left',
-  'left', 'right', 'right',
-  'left', 'left', 'right', 'right'
-])
-let index = ref(-1)
 function isforbids() {
   btnforbids.isdisbale = true
   btnforbids.flag.push(btnforbids.goyfilter)
   if (btnforbids.indexForbid === null) {
     btnforbids.flagcomfirm.push(btnforbids.goyfilter)
-    index.value++
-    if (selectionOrder.value[index.value] === 'left') {
-      btnforbids.selheroLeft++
+    if (btnforbids.selectionOrder[btnforbids.index] === 'left') {
       selheros.heroSelectLeft[btnforbids.selheroLeft].img = p.mapherolist.get(btnforbids.goyfilter)
+      btnforbids.selheroLeft++
     } else {
-      btnforbids.selheroRight++
       selheros.heroSelectRight[btnforbids.selheroRight].img = p.mapherolist.get(btnforbids.goyfilter)
-      if (btnforbids.selheroRight === selheros.heroSelectRight.length - 1) {
+      btnforbids.selheroRight++
+      if (btnforbids.selheroRight === selheros.heroSelectRight.length) {
         emit('event-isClick')
       }
     }
+    btnforbids.index++
     return
   }
   if (btnforbids.indexForbid > forbid.LEftforbidInit.length - 1) {

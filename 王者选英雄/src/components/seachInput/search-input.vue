@@ -2,7 +2,7 @@
   <form class="search-container" @submit.prevent="searchFun(herodata, heroName, emit), heroName = ''">
     <input type="text" placeholder="请输入搜索的内容" required="请输入英雄名字" v-model="heroName">
     <button class="search">
-      <span class="iconfont">&#xe603;</span>
+      <span>🔍</span>
     </button>
   </form>
 </template>
@@ -16,23 +16,6 @@ let emit = defineEmits(['searchedheroList-event'])
 </script>
 
 <style scoped>
-@import '@/assets/字体图标/iconfont.css';
-
-@font-face {
-  font-family: 'iconfont';
-  src: url('iconfont.woff2?t=1770435667619') format('woff2'),
-    url('iconfont.woff?t=1770435667619') format('woff'),
-    url('iconfont.ttf?t=1770435667619') format('truetype');
-}
-
-.iconfont {
-  font-family: "iconfont" !important;
-  font-size: 20px;
-  font-style: normal;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
 .search-container {
   width: 200px;
   height: 100%;
@@ -68,6 +51,10 @@ let emit = defineEmits(['searchedheroList-event'])
     cursor: pointer;
     border: 0;
     outline: none;
+
+    span {
+      font-size: 20px;
+    }
   }
 
 }

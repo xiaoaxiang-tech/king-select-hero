@@ -7,8 +7,14 @@ export const btnForbid = defineStore('btn-forbid', () => {
   let goyfilter = ref(null) //英雄是否被禁用（选择时）
   let indexForbid = ref(0) //禁用英雄下标
   let flags = ref(true) // 是否禁用右边
-  let selheroLeft = ref(-1) //英雄选择左边
-  let selheroRight = ref(-1) //英雄选择右边
+  let selheroLeft = ref(0) //英雄选择左边
+  let selheroRight = ref(0) //英雄选择右边
+  let index = ref(0)  //决定是左边还是右边的下标
+  const selectionOrder = ref([
+  'left', 'right', 'left',
+  'left', 'right', 'right',
+  'left', 'left', 'right', 'right'
+])  //左边还是右边
   return {
     isdisbale,
     flag,
@@ -18,5 +24,7 @@ export const btnForbid = defineStore('btn-forbid', () => {
     flags,
     selheroLeft,
     selheroRight,
+    index,
+    selectionOrder
   }
 })

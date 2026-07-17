@@ -2,13 +2,7 @@
   <div ref="heroItemRefs" :style="{
     transform: `translate(${left}px,${top}px)`,
   }">
-    <img
-      :src="thumbUrl"
-      alt=""
-      ref="heroimg"
-      decoding="async"
-      loading="lazy"
-      @click="$emit('select-hero', heroData)"
+    <img :src="thumbUrl" alt="" ref="heroimg" decoding="async" loading="lazy" @click="$emit('select-hero', heroData)"
       :class="[
         { active: heroData.id === goyid && btnforbids.indexForbid !== null },
         { active2: btnforbids.flag.includes(heroData.id) },

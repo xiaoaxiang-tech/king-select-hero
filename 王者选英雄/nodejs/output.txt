@@ -1,9 +1,0 @@
- ERR_PNPM_UNEXPECTED_VIRTUAL_STORE  Unexpected virtual store location
-
-The dependencies at "C:\Users\DELL\Desktop\vue-xunlian\王者选英雄\nodejs\node_modules" are currently symlinked from the virtual store directory at "C:\Users\DELL\Desktop\vue-xunlian\nodejs\node_modules\.pnpm".
-
-pnpm now wants to use the virtual store at "C:\Users\DELL\Desktop\vue-xunlian\王者选英雄\nodejs\node_modules\.pnpm" to link dependencies from the store.
-
-If you want to use the new virtual store location, reinstall your dependencies with "pnpm install".
-
-You may change the virtual store location by changing the value of the virtual-store-dir config.
