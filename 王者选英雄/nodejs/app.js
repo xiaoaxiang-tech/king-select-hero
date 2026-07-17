@@ -4,6 +4,10 @@ const cors = require('cors')
 const sharp = require('sharp')
 app.use(cors())
 
+app.get('/', (req, res) => {
+  res.send('backend is running')
+})
+
 app.get('/render', async (req, res) => {
   try {
     let result = await axios.get('https://pvp.qq.com/zlkdatasys/heroskinlist.json')
