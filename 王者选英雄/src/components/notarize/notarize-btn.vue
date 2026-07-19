@@ -17,6 +17,7 @@ function isforbids() {
   btnforbids.isdisbale = true
   btnforbids.flag.push(btnforbids.goyfilter)
   if (btnforbids.indexForbid === null) {
+    btnforbids.isindexTime = true
     btnforbids.flagcomfirm.push(btnforbids.goyfilter)
     if (btnforbids.selectionOrder[btnforbids.index] === 'left') {
       selheros.heroSelectLeft[btnforbids.selheroLeft].img = p.mapherolist.get(btnforbids.goyfilter)
@@ -29,6 +30,7 @@ function isforbids() {
       }
     }
     btnforbids.index++
+
     return
   }
   if (btnforbids.indexForbid > forbid.LEftforbidInit.length - 1) {
@@ -46,6 +48,8 @@ function isforbids() {
   btnforbids.indexForbid++
 
 }
+
+defineExpose({ isforbids })
 </script>
 
 <style scoped>

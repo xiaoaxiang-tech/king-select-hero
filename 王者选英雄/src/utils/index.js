@@ -57,3 +57,22 @@ export function classifyedArr(value, resultArr, oldArr) {
     })
   }
 }
+
+// 定时器函数
+export function rafInterval(cb, delay) {
+  let start = Date.now()
+  let timerId
+
+  function loop() {
+    timerId = requestAnimationFrame(loop)
+    const now = Date.now()
+    if (now - start >= delay) {
+      cb()
+      start = now
+    }
+  }
+  timerId = requestAnimationFrame(loop)
+
+  // 返回销毁函数
+  return () => cancelAnimationFrame(timerId)
+}

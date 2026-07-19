@@ -1,7 +1,7 @@
 <template>
   <div class="box">
     <div class="top-time-container">
-      <top-time></top-time>
+      <top-time :selectHerojiziTime="selectHerojiziTime" :selectText="selectText"></top-time>
     </div>
     <!-- 禁用英雄区域 -->
     <div class="forbid-hero">
@@ -43,7 +43,7 @@
 
     <!-- 确认按钮 -->
     <div class="notarize-container">
-      <notarizeBtn :mapherolist="mapForbid" @event-isClick="isclicker"></notarizeBtn>
+      <notarizeBtn :mapherolist="mapForbid" @event-isClick="isclicker" ref="norarizeBtnData"></notarizeBtn>
     </div>
   </div>
 </template>
@@ -62,7 +62,7 @@ import { classifyHero } from '@/stores/classify-hero';
 import { selectHero } from '@/stores/hero-select.js';
 import { render } from '@/utils/API';
 import { onMounted, ref, useTemplateRef, reactive, nextTick } from 'vue'
-import { classifyedArr, elementHeight, renderBetween } from '@/utils';
+import { classifyedArr, elementHeight, rafInterval, renderBetween } from '@/utils';
 import { btnForbid } from '@/stores/btn-forbid';
 const NewforbidStore = forbidStore() //响应式数组ref 禁用英雄数据
 const newheroArr = classifyHero() //英雄选项卡Store
@@ -90,9 +90,15 @@ const forbid = forbidStore()
 const btnforbids = btnForbid()
 const selheros = selectHero() // 选择英雄仓库
 let isClick = ref(true)
+let selectHerojiziTime = ref(5) // 英雄区域等待时间
+let selectHeroTiem = 25  //英雄选择
+let gameLoadTime = 10 // 等待进入时间
+let selectText = ref('请禁用你的英雄') // 默认值
+let isSelectHero = ref(false)
+let norarizeBtnData = ref(null) // 用于接收notarize-btn 组件通过defineEXpose 暴露的数据
 onMounted(async () => {
+  heroTimeFun()  //开始就计时
   let res = await render()
-
   result.value = res.map(item => {
     return {
       ...item,
@@ -114,6 +120,43 @@ onMounted(async () => {
   byHeroContainer.value.style.height = ElHeight + 'px'
   renderInit() // 初始化渲染
 })
+
+// 英雄时间函数
+function heroTimeFun() {
+  return rafInterval(() => {
+    selectHerojiziTime.value--
+    clearHeroTimeFun()  //切换模式
+  }, 1000)
+}
+
+// 英雄时间切换
+function clearHeroTimeFun() {
+  if (selectHerojiziTime.value < 0 || btnforbids.isindexTime) {
+    if (!btnforbids.isdisbale && selectHerojiziTime.value < 0) {
+      norarizeBtnData.value.isforbids()
+    }
+    selectHerojiziTime.value = selectHeroTiem
+    isSelectHero.value = true  //选择英雄
+    if (btnforbids.selectionOrder[btnforbids.index] === 'left') {
+      selectText.value = `请红色方第${btnforbids.selheroLeft + 1}号选手选择英雄`
+    } else {
+      if (btnforbids.selheroRight + 1 > selheros.heroSelectRight.length) {
+        selectText.value = '即将进入对局'
+        selectHerojiziTime.value = gameLoadTime
+      } else {
+        selectText.value = `请蓝色方第${btnforbids.selheroRight + 1}号选手选择英雄`
+      }
+    }
+    btnforbids.isindexTime = false
+    heroTimeFun()()  //清除之前的计时器,并调用
+
+  }
+  if (selectText.value === '即将进入对局' && selectHerojiziTime.value <= 0) {
+    console.log(1111111111);
+
+  }
+
+}
 function renderInit() {
   let { startIndex, endIndex } = renderBetween(centerScroll, byheroData)
   startInx.value = startIndex
@@ -125,14 +168,14 @@ function ispick(item) {
     forbidhero.isdisbale = false
     forbidhero.goyfilter = item.id
 
-    if (forbidhero.indexForbid > forbid.LEftforbidInit.length - 1 && !forbidhero.flags) {
+    if ((forbidhero.indexForbid > forbid.LEftforbidInit.length - 1 && !forbidhero.flags) || isSelectHero.value) {
       forbidhero.indexForbid = null
     }
     if (forbidhero.indexForbid === null) {
-      if (btnforbids.selectionOrder[btnforbids?.index] === 'left') {
+      if (btnforbids?.selectionOrder[btnforbids?.index] === 'left') {
         selheros.heroSelectLeft[btnforbids.selheroLeft].img = item.fmlb_4536
       } else {
-        selheros.heroSelectRight[btnforbids.selheroRight].img = item.fmlb_4536
+        selheros.heroSelectRight[btnforbids?.selheroRight].img = item.fmlb_4536
       }
     }
   }

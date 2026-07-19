@@ -9,12 +9,20 @@ export const btnForbid = defineStore('btn-forbid', () => {
   let flags = ref(true) // 是否禁用右边
   let selheroLeft = ref(0) //英雄选择左边
   let selheroRight = ref(0) //英雄选择右边
-  let index = ref(0)  //决定是左边还是右边的下标
+  let index = ref(0) //决定是左边还是右边的下标
+  let isindexTime = ref(false) // 决定我是否点击了确定按钮
   const selectionOrder = ref([
-  'left', 'right', 'left',
-  'left', 'right', 'right',
-  'left', 'left', 'right', 'right'
-])  //左边还是右边
+    'left',
+    'right',
+    'left',
+    'left',
+    'right',
+    'right',
+    'left',
+    'left',
+    'right',
+    'right',
+  ]) //左边还是右边
   return {
     isdisbale,
     flag,
@@ -25,6 +33,7 @@ export const btnForbid = defineStore('btn-forbid', () => {
     selheroLeft,
     selheroRight,
     index,
-    selectionOrder
+    selectionOrder,
+    isindexTime,
   }
 })
