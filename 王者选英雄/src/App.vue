@@ -1,10 +1,9 @@
 <template>
-     <total-container></total-container>
-
+    <router-view></router-view>
 </template>
 
 <script setup>
-     import totalContainer from './components/total-container.vue';
+
 </script>
 
 <style scoped>

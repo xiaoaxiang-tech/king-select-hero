@@ -23,10 +23,7 @@ app.get('/image', async (req, res) => {
     const { url, w = 160 } = req.query
     if (!url) return res.status(400).send('missing url')
     const response = await axios.get(url, { responseType: 'arraybuffer' })
-    const resized = await sharp(response.data)
-      .resize(Number(w))
-      .webp({ quality: 80 })
-      .toBuffer()
+    const resized = await sharp(response.data).resize(Number(w)).webp({ quality: 80 }).toBuffer()
     res.set('Content-Type', 'image/webp')
     res.set('Cache-Control', 'public, max-age=86400')
     res.send(resized)

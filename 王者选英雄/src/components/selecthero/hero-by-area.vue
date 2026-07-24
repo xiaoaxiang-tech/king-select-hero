@@ -46,7 +46,7 @@ div {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: filter .3s;
+    transition: all .1s;
     border-radius: 50%;
   }
 }

@@ -49,21 +49,22 @@
 </template>
 
 <script setup>
-import topTime from './TopTime/top-time.vue';
-import forbidHero from './forbidhero/forbid-hero.vue';
-import searchInput from './seachInput/search-input.vue';
-import heroCard from './heroCard/hero-card.vue';
-import selectHeroArea from './selecthero/select-hero.vue';
-import notarizeBtn from './notarize/notarize-btn.vue';
-import heroByArea from './selecthero/hero-by-area.vue';
+import topTime from '@/components/TopTime/top-time.vue';
+import forbidHero from '@/components/forbidhero/forbid-hero.vue';
+import searchInput from '@/components/seachInput/search-input.vue';
+import heroCard from '@/components/heroCard/hero-card.vue';
+import selectHeroArea from '@/components/selecthero/select-hero.vue';
+import notarizeBtn from '@/components/notarize/notarize-btn.vue';
+import heroByArea from '@/components/selecthero/hero-by-area.vue';
 import { v4 as uuidv4 } from 'uuid'
 import { forbidStore } from '@/stores/forbid';
 import { classifyHero } from '@/stores/classify-hero';
 import { selectHero } from '@/stores/hero-select.js';
 import { render } from '@/utils/API';
-import { onMounted, ref, useTemplateRef, reactive, nextTick } from 'vue'
+import { onMounted, ref, useTemplateRef, reactive, nextTick, onUnmounted } from 'vue'
 import { classifyedArr, elementHeight, rafInterval, renderBetween } from '@/utils';
 import { btnForbid } from '@/stores/btn-forbid';
+import router from '@/router';
 const NewforbidStore = forbidStore() //响应式数组ref 禁用英雄数据
 const newheroArr = classifyHero() //英雄选项卡Store
 const newSelectHero = selectHero() // 选择英雄仓库
@@ -96,6 +97,7 @@ let gameLoadTime = 10 // 等待进入时间
 let selectText = ref('请禁用你的英雄') // 默认值
 let isSelectHero = ref(false)
 let norarizeBtnData = ref(null) // 用于接收notarize-btn 组件通过defineEXpose 暴露的数据
+let clearAnimationFrame = null
 onMounted(async () => {
   heroTimeFun()  //开始就计时
   let res = await render()
@@ -121,17 +123,34 @@ onMounted(async () => {
   renderInit() // 初始化渲染
 })
 
+
+onUnmounted(() => {
+  if (clearAnimationFrame) {
+    clearAnimationFrame()  //销毁定时器
+  }
+})
 // 英雄时间函数
 function heroTimeFun() {
-  return rafInterval(() => {
+  if (clearAnimationFrame) clearAnimationFrame()
+  clearAnimationFrame = rafInterval(() => {
     selectHerojiziTime.value--
     clearHeroTimeFun()  //切换模式
   }, 1000)
+  return clearAnimationFrame
 }
 
 // 英雄时间切换
 function clearHeroTimeFun() {
-  if (selectHerojiziTime.value < 0 || btnforbids.isindexTime) {
+  console.log(11111);
+  if (selectText.value === '即将进入对局' && selectHerojiziTime.value <= 0) {
+    router.push({
+      path: 'load-page',
+      query: {
+        fallred: JSON.stringify(newSelectHero.heroSelectLeft),
+        fallblue: JSON.stringify(newSelectHero.heroSelectRight)
+      }
+    })
+  } else if (selectHerojiziTime.value < 0 || btnforbids.isindexTime) {
     if (!btnforbids.isdisbale && selectHerojiziTime.value < 0) {
       norarizeBtnData.value.isforbids()
     }
@@ -148,13 +167,9 @@ function clearHeroTimeFun() {
       }
     }
     btnforbids.isindexTime = false
-    heroTimeFun()()  //清除之前的计时器,并调用
-
+    heroTimeFun()  //调用
   }
-  if (selectText.value === '即将进入对局' && selectHerojiziTime.value <= 0) {
-    console.log(1111111111);
 
-  }
 
 }
 function renderInit() {
